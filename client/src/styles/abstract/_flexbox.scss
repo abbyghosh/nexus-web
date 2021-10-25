@@ -1,0 +1,8 @@
+@mixin flexbox($jc: null, $ai: null, $gap: null, $dir: null, $wrap: null) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+  gap: $gap;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
+}

@@ -1,0 +1,19 @@
+@mixin truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #b1b1b1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #525252;
+  }
+}

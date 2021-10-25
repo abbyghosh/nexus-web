@@ -1,0 +1,57 @@
+@import "../../styles/abstract";
+
+header {
+  background-color: var(--black-800);
+  height: $header-height;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+
+  > div {
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    @include flexbox(space-between, center);
+    > div {
+      @include flexbox(null, center, 50px);
+    }
+  }
+
+  nav {
+    ul {
+      @include flexbox(space-between, center, 4px);
+      list-style: none;
+      li {
+        font-weight: 600;
+      }
+      a {
+        position: relative;
+        text-decoration: none;
+        padding: 10px;
+        color: white;
+
+        &.active,
+        &:hover {
+          color: #00ffe7;
+          &:before,
+          &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: currentColor;
+          }
+
+          &:before {
+            top: 0;
+          }
+
+          &:after {
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
