@@ -5,7 +5,7 @@ import TruncatedElement from "../../common/TruncatedElement/TruncatedElement";
 
 import "./movieCard.scss";
 
-function MovieCard({ allMovies }) {
+function MovieCard({ allMovies, getAllMovies }) {
   const [editId, setEditId] = useState();
 
   return (

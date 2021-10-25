@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 import MovieCard from "./MovieCard/MovieCard";
@@ -11,31 +11,33 @@ import { ReactComponent as NotWatchedIcon } from "../../assets/icons/not-watched
 import { BASE_URL } from "../../utils/constants";
 
 import "./movies.scss";
+import { GlobalContext } from "../../context/GlobalState";
 
 function Main() {
-  const [allMovies, setAllMovies] = useState([]);
+  let {
+    movie: {
+      movies: { loading, error, data: allMovies },
+      getAllMovies,
+    },
+  } = useContext(GlobalContext);
+
   const [isTableView, setIsTableView] = useState(true);
   const [displayWatched, setDisplayWatched] = useState(false);
   const [sourceList, setSourceList] = useState([]);
-  const [refreshMovies, setRefreshMovies] = useState(false);
 
   useEffect(() => {
     getAllMovies();
     getAllSources();
   }, []);
 
-  useEffect(() => {
-    if (refreshMovies) getAllMovies();
-  }, [refreshMovies]);
-
-  const getAllMovies = async () => {
+  /*   const getAllMovies = async () => {
     let {
       data: { data },
     } = await axios.get(`${BASE_URL}/movies`);
     console.log("all movies ", data);
     setAllMovies(data);
     setRefreshMovies(false);
-  };
+  }; */
 
   const getAllSources = async () => {
     let {
@@ -69,10 +71,10 @@ function Main() {
             allMovies={allMovies}
             sourceList={sourceList}
             displayWatched={displayWatched}
-            isRefreshMovies={setRefreshMovies}
+            getAllMovies={getAllMovies}
           />
         ) : (
-          <MovieCard allMovies={allMovies} />
+          <MovieCard allMovies={allMovies} getAllMovies={getAllMovies} />
         )}
       </div>
     </main>

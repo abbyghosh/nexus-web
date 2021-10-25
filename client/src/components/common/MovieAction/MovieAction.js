@@ -19,7 +19,7 @@ function MovieAction({ id, editId, setId, watched, updateMovie, updateBody, rese
         />
         {editId && (
           <div className="edit-options">
-            <UpdateIcon onClick={updateMovie} />
+            <UpdateIcon onClick={() => updateMovie(id)} />
             <CloseIcon onClick={reset} />
           </div>
         )}

@@ -52,6 +52,7 @@
             background-color: var(--black-700);
             padding: 6px 10px;
             width: max-content;
+            z-index: 1;
 
             .control {
               @include flexbox(null, center, 8px);
@@ -84,14 +85,22 @@
 
   tbody tr {
     background-color: var(--black-400);
+    position: relative;
     &:not(:last-child) {
       border-bottom: 2px solid var(--black-200);
     }
-
     td {
       padding: 6px;
       &:not(:last-child) {
         border-right: 2px solid var(--black-200);
+      }
+
+      > span:hover {
+        text-decoration: underline;
+      }
+      .image-preview {
+        position: absolute;
+        z-index: 1;
       }
     }
 

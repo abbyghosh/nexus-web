@@ -10,28 +10,30 @@ import { BASE_URL, ORDER_BY } from "../../../utils/constants";
 
 import "./movieTable.scss";
 
-function MovieTable({ allMovies, sourceList, displayWatched, isRefreshMovies }) {
+function MovieTable({ allMovies, sourceList, displayWatched, getAllMovies }) {
   const [editId, setEditId] = useState(null);
   const [updateBody, setUpdateBody] = useState({});
   const [sourceFilter, setSourceFilter] = useState([]);
   const [sortBy, setSortBy] = useState({ name: "", order: 0 });
+  const [movieBannerPreview, setMovieBannerPreview] = useState("");
 
   useEffect(() => {
     setSortBy({ name: "", order: 0 });
   }, [displayWatched]);
 
   const updateMovie = (id, body) => {
+    console.log(id, editId, body);
     axios
       .patch(`${BASE_URL}/movies/${id || editId}`, body || updateBody)
       .then((res) => {
         console.log(res);
         setEditId(null);
-        isRefreshMovies(true);
+        getAllMovies();
       })
       .catch((err) => console.log(err));
   };
 
-  const getSequencedMovies = () => {
+  const getSortedMovies = () => {
     let movies = [...allMovies];
     if (sortBy.order > 0)
       return movies.sort(function (a, b) {
@@ -78,7 +80,7 @@ function MovieTable({ allMovies, sourceList, displayWatched, isRefreshMovies }) 
           </tr>
         </thead>
         <tbody>
-          {getSequencedMovies().map(
+          {getSortedMovies().map(
             ({
               _id: id,
               imDbId,
@@ -96,7 +98,21 @@ function MovieTable({ allMovies, sourceList, displayWatched, isRefreshMovies }) 
               watched === displayWatched &&
               (sourceFilter.length === 0 || sourceFilter.includes(source)) && (
                 <tr key={id}>
-                  <td>{`${title} (${year})`}</td>
+                  <td>
+                    <span
+                      onMouseEnter={() => setMovieBannerPreview(image)}
+                      onMouseLeave={() => setMovieBannerPreview("")}
+                    >{`${title} (${year})`}</span>
+
+                    {image === movieBannerPreview && (
+                      <img
+                        src={movieBannerPreview}
+                        alt={`${title} poster`}
+                        width="200"
+                        className="image-preview"
+                      />
+                    )}
+                  </td>
                   <td>
                     {editId === id ? (
                       <select
@@ -106,7 +122,9 @@ function MovieTable({ allMovies, sourceList, displayWatched, isRefreshMovies }) 
                         }
                       >
                         {sourceList.map((option) => (
-                          <option value={option.name}>{option.name}</option>
+                          <option key={option._id} value={option.name}>
+                            {option.name}
+                          </option>
                         ))}
                       </select>
                     ) : (
@@ -121,6 +139,7 @@ function MovieTable({ allMovies, sourceList, displayWatched, isRefreshMovies }) 
                     {/* Display Rewatch */}
                     {displayWatched && (
                       <RatingStar
+                        id={id}
                         editId={editId}
                         updateBody={updateBody}
                         rewatchScore={rewatchScore}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 import useDetectOutside from "../../../customHooks/useDetectOutside";
@@ -8,9 +8,13 @@ import { ReactComponent as SearchIcon } from "../../../assets/icons/search.svg";
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
 
 import "./movieSearch.scss";
+import { GlobalContext } from "../../../context/GlobalState";
 
 function MovieSearch() {
   const ignoreSubString = ["(Video)", "(Short)"];
+  let {
+    movie: { getAllMovies },
+  } = useContext(GlobalContext);
 
   const wrapperRef = useRef(null);
   const clickedOutside = useDetectOutside(wrapperRef);
@@ -72,6 +76,7 @@ function MovieSearch() {
 
     try {
       await axios.post(`${BASE_URL}/movies`, movieBody);
+      getAllMovies();
     } catch (err) {
       console.log("err ", err.response);
       setErrorMsg(err.response.data?.message);
