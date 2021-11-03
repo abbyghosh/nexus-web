@@ -1,5 +1,14 @@
 @import "../../../../styles/abstract";
 
+.movie-card-wrapper .actions {
+  min-width: 130px;
+  margin: 0 auto;
+
+  svg {
+    width: 22px;
+  }
+}
+
 .actions {
   box-shadow: 0px 0px 4px 0px #00000040;
   padding: 2px 10px;
