@@ -2,18 +2,33 @@
 
 .movie-card-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 210px);
+  grid-template-columns: repeat(auto-fill, 100%);
   justify-content: space-between;
   grid-gap: 20px;
+
+  @include mobile {
+    grid-template-columns: repeat(auto-fill, 300px);
+  }
 
   .movie-card {
     background-color: var(--black-400);
     padding: 10px;
     border-radius: 2px;
-    > div {
-      margin-top: 10px;
-      > div {
-        margin-bottom: 10px;
+    @include flexbox(space-between, null, null, column);
+
+    .movie-details {
+      img {
+        height: 140px;
+        width: 100px;
+      }
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      .movie-content {
+        div {
+          margin-bottom: 10px;
+        }
       }
     }
 

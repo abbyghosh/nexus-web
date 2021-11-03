@@ -1,47 +1,28 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
-import MovieAction from "../../common/MovieAction/MovieAction";
+import MovieAction from "../common/MovieAction/MovieAction";
 import RatingStar from "../common/RatingStar/RatingStar";
 import Sortable from "./Sortable/Sortable";
 import Filterable from "./Filterable/Filterable";
 
-import { BASE_URL, ORDER_BY } from "../../../utils/constants";
-
 import "./movieTable.scss";
 
-function MovieTable({ allMovies, sourceList, displayWatched, getAllMovies }) {
-  const [editId, setEditId] = useState(null);
-  const [updateBody, setUpdateBody] = useState({});
+function MovieTable({
+  allMovies,
+  sourceList,
+  displayWatched,
+  getAllMovies,
+  isTableView,
+  setSortBy,
+  sortBy,
+  editId,
+  setEditId,
+  updateBody,
+  setUpdateBody,
+  updateMovie,
+}) {
   const [sourceFilter, setSourceFilter] = useState([]);
-  const [sortBy, setSortBy] = useState({ name: "", order: 0 });
   const [movieBannerPreview, setMovieBannerPreview] = useState("");
-
-  useEffect(() => {
-    setSortBy({ name: "", order: 0 });
-  }, [displayWatched]);
-
-  const updateMovie = (id, body) => {
-    console.log(id, editId, body);
-    axios
-      .patch(`${BASE_URL}/movies/${id || editId}`, body || updateBody)
-      .then((res) => {
-        console.log(res);
-        setEditId(null);
-        getAllMovies();
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const getSortedMovies = () => {
-    let movies = [...allMovies];
-    if (sortBy.order > 0)
-      return movies.sort(function (a, b) {
-        if (ORDER_BY[sortBy.order] === "asc") return a[sortBy.name] - b[sortBy.name];
-        return b[sortBy.name] - a[sortBy.name];
-      });
-    return movies;
-  };
 
   return (
     <div className="tableFixHead">
@@ -80,7 +61,7 @@ function MovieTable({ allMovies, sourceList, displayWatched, getAllMovies }) {
           </tr>
         </thead>
         <tbody>
-          {getSortedMovies().map(
+          {allMovies.map(
             ({
               _id: id,
               imDbId,
@@ -162,14 +143,14 @@ function MovieTable({ allMovies, sourceList, displayWatched, getAllMovies }) {
                   </td>
                   <td>
                     <MovieAction
+                      id={id}
                       setId={setEditId}
+                      isCurrentId={editId === id}
                       updateBody={() => setUpdateBody({ source, watchQueue, rewatchScore })}
                       reset={() => {
                         setEditId(null);
                         setUpdateBody({});
                       }}
-                      id={id}
-                      editId={editId === id ? id : null}
                       watched={watched}
                       updateMovie={updateMovie}
                     />

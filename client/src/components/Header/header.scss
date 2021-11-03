@@ -12,12 +12,12 @@ header {
     width: 90%;
     margin: 0 auto;
     @include flexbox(space-between, center);
-    > div {
+    .search-with-nav {
       @include flexbox(null, center, 50px);
     }
   }
 
-  nav {
+  .desktop-nav {
     ul {
       @include flexbox(space-between, center, 4px);
       list-style: none;

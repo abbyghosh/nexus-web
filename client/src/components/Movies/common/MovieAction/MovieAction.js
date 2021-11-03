@@ -1,13 +1,14 @@
 import React from "react";
-import { ReactComponent as EditIcon } from "../../../assets/icons/edit.svg";
-import { ReactComponent as DeleteIcon } from "../../../assets/icons/delete.svg";
-import { ReactComponent as SeenIcon } from "../../../assets/icons/seen.svg";
-import { ReactComponent as UpdateIcon } from "../../../assets/icons/save-tick.svg";
-import { ReactComponent as CloseIcon } from "../../../assets/icons/dont-save-close.svg";
+
+import { ReactComponent as EditIcon } from "../../../../assets/icons/edit.svg";
+import { ReactComponent as DeleteIcon } from "../../../../assets/icons/delete.svg";
+import { ReactComponent as SeenIcon } from "../../../../assets/icons/seen.svg";
+import { ReactComponent as UpdateIcon } from "../../../../assets/icons/save-tick.svg";
+import { ReactComponent as CloseIcon } from "../../../../assets/icons/dont-save-close.svg";
 
 import "./movieAction.scss";
 
-function MovieAction({ id, editId, setId, watched, updateMovie, updateBody, reset }) {
+function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody, reset }) {
   return (
     <div className="actions">
       <div style={{ position: "relative" }}>
@@ -17,7 +18,7 @@ function MovieAction({ id, editId, setId, watched, updateMovie, updateBody, rese
             updateBody();
           }}
         />
-        {editId && (
+        {isCurrentId && (
           <div className="edit-options">
             <UpdateIcon onClick={() => updateMovie(id)} />
             <CloseIcon onClick={reset} />

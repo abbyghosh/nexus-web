@@ -4,13 +4,14 @@ import axios from "axios";
 import useDetectOutside from "../../../customHooks/useDetectOutside";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/search.svg";
+import { ReactComponent as RubberIcon } from "../../../assets/icons/rubber.svg";
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
 
 import "./movieSearch.scss";
 import { GlobalContext } from "../../../context/GlobalState";
 
-function MovieSearch() {
+function MovieSearch({ width }) {
   const ignoreSubString = ["(Video)", "(Short)"];
   let {
     movie: { getAllMovies },
@@ -87,7 +88,7 @@ function MovieSearch() {
   };
 
   return (
-    <div className="search-container" ref={wrapperRef}>
+    <div className="search-container" ref={wrapperRef} style={{ width: width }}>
       <form onSubmit={searchMovie} className="search-field">
         <input
           type="text"
@@ -95,9 +96,14 @@ function MovieSearch() {
           onChange={(e) => setTypedMovie(e.target.value)}
           placeholder="Search movie or web series"
         />
-        <button type="submit">
-          <SearchIcon width="20" height="20" />
-        </button>
+        <div>
+          <button type="submit">
+            {typedMovie && <RubberIcon width="18" height="18" onClick={() => setTypedMovie("")} />}
+          </button>
+          <button type="submit">
+            <SearchIcon width="20" height="20" />
+          </button>
+        </div>
       </form>
 
       <div
