@@ -11,23 +11,23 @@
     width: 100%;
 
     > input {
-      padding: 6px 10px;
-      padding-right: 62px;
+      padding: 10px 10px;
+      padding-right: 100px;
       background-color: var(--black-500);
       color: var(--snow-white);
       border: 1px solid var(--black-600);
       border-radius: 4px;
       width: 100%;
-      font-size: 16px;
+      font-size: 18px;
       box-sizing: border-box;
     }
 
     > div {
       position: absolute;
-      right: 8px;
-      top: 6px;
+      right: 16px;
+      top: 10px;
       z-index: 1;
-      @include flexbox(null, center, 4px);
+      @include flexbox(null, center, 8px);
 
       > button {
         background: transparent;
@@ -45,7 +45,7 @@
 
   .search-results {
     position: absolute;
-    top: 30px;
+    top: 42px;
     background-color: var(--black-600);
     color: var(--snow-white);
     padding: 10px;
@@ -100,4 +100,16 @@
       background-color: var(--black-600);
     }
   }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+#loading {
+  animation: spin 3s linear infinite;
 }

@@ -2,12 +2,12 @@
 
 .movie-card-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 100%);
+  grid-template-columns: repeat(auto-fill, 24%);
   justify-content: space-between;
-  grid-gap: 20px;
+  grid-gap: 10px;
 
   @include mobile {
-    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-columns: repeat(auto-fill, 100%);
   }
 
   .movie-card {
@@ -26,6 +26,13 @@
       margin-bottom: 20px;
 
       .movie-content {
+        flex-grow: 1;
+        min-width: 0;
+
+        .movie-name {
+          margin-top: 0;
+        }
+
         div {
           margin-bottom: 10px;
         }

@@ -42,7 +42,9 @@ function MovieCard({
               <div className="movie-details">
                 <img src={image} alt={`${title} poster`} />
                 <div className="movie-content">
-                  <TruncatedElement label={`${title} (${year})`} className="movie-name" />
+                  <p label={`${title} (${year})`} className="movie-name">
+                    {`${title} (${year})`}
+                  </p>
                   <div>
                     {editId === id ? (
                       <select

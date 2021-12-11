@@ -5,16 +5,19 @@ import useDetectOutside from "../../../customHooks/useDetectOutside";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/search.svg";
 import { ReactComponent as RubberIcon } from "../../../assets/icons/rubber.svg";
+import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg";
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
 
-import "./movieSearch.scss";
 import { GlobalContext } from "../../../context/GlobalState";
+
+import "./movieSearch.scss";
 
 function MovieSearch({ width }) {
   const ignoreSubString = ["(Video)", "(Short)"];
   let {
     movie: { getAllMovies },
+    toast: { toastDispatch },
   } = useContext(GlobalContext);
 
   const wrapperRef = useRef(null);
@@ -23,6 +26,7 @@ function MovieSearch({ width }) {
   const [typedMovie, setTypedMovie] = useState("");
   const [searchedResults, setSearchedResults] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [loadingMovies, setLoadingMovies] = useState(false);
 
   useEffect(() => {
     setSearchedResults([]);
@@ -30,11 +34,14 @@ function MovieSearch({ width }) {
   }, [clickedOutside]);
 
   const searchMovie = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (typedMovie.trim()) {
+      setLoadingMovies(true);
       let {
         data: { results: moviesIdRes },
       } = await axios.get(`https://imdb-api.com/en/API/Search/${IMDB_API_KEY[0]}/${typedMovie}`);
+
+      setLoadingMovies(false);
 
       const filteredMoviesOnly = moviesIdRes?.filter(
         (data) => !ignoreSubString.some((r) => data.description.includes(r))
@@ -77,6 +84,7 @@ function MovieSearch({ width }) {
 
     try {
       await axios.post(`${BASE_URL}/movies`, movieBody);
+      toastDispatch({ type: "SUCCESS", payload: "Movie Added" });
       getAllMovies();
     } catch (err) {
       console.log("err ", err.response);
@@ -93,15 +101,29 @@ function MovieSearch({ width }) {
         <input
           type="text"
           value={typedMovie}
-          onChange={(e) => setTypedMovie(e.target.value)}
+          onChange={(e) => {
+            setTypedMovie(e.target.value);
+            if (e.target.value.length > 3) searchMovie();
+          }}
           placeholder="Search movie or web series"
         />
         <div>
+          {loadingMovies && <LoadingIcon width="22" height="22" />}
+
           <button type="submit">
-            {typedMovie && <RubberIcon width="18" height="18" onClick={() => setTypedMovie("")} />}
+            {typedMovie && (
+              <RubberIcon
+                width="22"
+                height="22"
+                onClick={() => {
+                  setTypedMovie("");
+                  setSearchedResults([]);
+                }}
+              />
+            )}
           </button>
           <button type="submit">
-            <SearchIcon width="20" height="20" />
+            <SearchIcon width="24" height="24" />
           </button>
         </div>
       </form>

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import MoviesReducer from "./MoviesReducer";
 import { BASE_URL } from "../utils/constants";
+import ToastReducer from "./ToastReducer";
 
 export const GlobalContext = createContext();
 const initialState = {
@@ -11,11 +12,17 @@ const initialState = {
   data: [],
 };
 
+const initialToastState = {
+  isActive: false,
+  msg: "",
+  severity: "", //success, error, warning, info
+};
+
 export const GlobalProvider = ({ children }) => {
   const [movieState, movieDispatch] = useReducer(MoviesReducer, initialState);
+  const [toastState, toastDispatch] = useReducer(ToastReducer, initialToastState);
 
   async function getAllMovies() {
-    console.log("Called movies");
     try {
       const {
         data: { data },
@@ -30,6 +37,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         movie: { movies: movieState, movieDispatch, getAllMovies },
+        toast: { toastState, toastDispatch },
       }}
     >
       {children}
