@@ -12,6 +12,14 @@ import MenuOverlay from "./MenuOverlay/MenuOverlay";
 function Header() {
   const { isMobile } = useDevice();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = React.useRef(null);
+
+  const addressFocus = () => {
+    //Since the search bar isnt present in the dom so the focus isnt working instantly, so delaying the execution
+    setTimeout(() => {
+      searchRef.current.focus();
+    }, 0);
+  };
 
   return (
     <header>
@@ -46,11 +54,17 @@ function Header() {
           isSearchOpen ? (
             <ContractIcon width="30" onClick={() => setIsSearchOpen(false)} />
           ) : (
-            <SearchIcon width="30" onClick={() => setIsSearchOpen(true)} />
+            <SearchIcon
+              width="30"
+              onClick={(e) => {
+                setIsSearchOpen(true);
+                addressFocus(e);
+              }}
+            />
           )
         ) : null}
       </div>
-      {isSearchOpen && <MovieSearch width="100%" />}
+      {isSearchOpen && <MovieSearch width="100%" ref={searchRef} />}
     </header>
   );
 }
