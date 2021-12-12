@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
 import axios from "axios";
 
 import useDetectOutside from "../../../customHooks/useDetectOutside";
@@ -8,6 +8,7 @@ import { ReactComponent as RubberIcon } from "../../../assets/icons/rubber.svg";
 import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg";
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
+import { debounce } from "../../../utils";
 
 import { GlobalContext } from "../../../context/GlobalState";
 
@@ -35,11 +36,12 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
 
   const searchMovie = async (e) => {
     e?.preventDefault();
-    if (typedMovie.trim()) {
+    const searchText = e.target.value || typedMovie;
+    if (searchText.trim()) {
       setLoadingMovies(true);
       let {
         data: { results: moviesIdRes },
-      } = await axios.get(`https://imdb-api.com/en/API/Search/${IMDB_API_KEY[0]}/${typedMovie}`);
+      } = await axios.get(`https://imdb-api.com/en/API/Search/${IMDB_API_KEY[0]}/${searchText}`);
 
       setLoadingMovies(false);
 
@@ -95,6 +97,8 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
     }
   };
 
+  const debouncedSearch = useCallback(debounce(searchMovie, 300), []);
+
   return (
     <div className="search-container" ref={wrapperRef} style={{ width: width }}>
       <form onSubmit={searchMovie} className="search-field">
@@ -102,8 +106,9 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
           type="text"
           value={typedMovie}
           onChange={(e) => {
-            setTypedMovie(e.target.value);
-            if (e.target.value.length > 3) searchMovie();
+            let value = e.target.value;
+            setTypedMovie(value);
+            if (value.length > 3) debouncedSearch(e);
           }}
           placeholder="Search movie or web series"
           ref={ref}
