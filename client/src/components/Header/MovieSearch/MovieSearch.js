@@ -13,7 +13,7 @@ import { GlobalContext } from "../../../context/GlobalState";
 
 import "./movieSearch.scss";
 
-function MovieSearch({ width }) {
+const MovieSearch = React.forwardRef(({ width }, ref) => {
   const ignoreSubString = ["(Video)", "(Short)"];
   let {
     movie: { getAllMovies },
@@ -106,6 +106,7 @@ function MovieSearch({ width }) {
             if (e.target.value.length > 3) searchMovie();
           }}
           placeholder="Search movie or web series"
+          ref={ref}
         />
         <div>
           {loadingMovies && <LoadingIcon width="22" height="22" />}
@@ -151,6 +152,6 @@ function MovieSearch({ width }) {
       </div>
     </div>
   );
-}
+});
 
 export default MovieSearch;
