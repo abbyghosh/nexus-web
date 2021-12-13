@@ -9,7 +9,6 @@ import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
 import { debounce } from "../../../utils";
-
 import { GlobalContext } from "../../../context/GlobalState";
 
 import "./movieSearch.scss";
@@ -22,6 +21,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
   } = useContext(GlobalContext);
 
   const wrapperRef = useRef(null);
+  const controller = useRef(null);
   const clickedOutside = useDetectOutside(wrapperRef);
 
   const [typedMovie, setTypedMovie] = useState("");
@@ -36,26 +36,45 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
 
   const searchMovie = async (e) => {
     e?.preventDefault();
-    const searchText = e.target.value || typedMovie;
+    const searchText = e?.target?.value || typedMovie;
+
     if (searchText.trim()) {
-      setLoadingMovies(true);
-      let {
-        data: { results: moviesIdRes },
-      } = await axios.get(`https://imdb-api.com/en/API/Search/${IMDB_API_KEY[0]}/${searchText}`);
+      if (controller.current) controller.current.abort();
+      controller.current = new AbortController();
+      try {
+        setLoadingMovies(true);
+        let {
+          data: { results: moviesIdRes, errorMessage },
+        } = await axios.get(`https://imdb-api.com/en/API/Search/${IMDB_API_KEY[0]}/${searchText}`, {
+          signal: controller.current.signal,
+        });
 
-      setLoadingMovies(false);
+        setLoadingMovies(false);
+        if (errorMessage) {
+          toastDispatch({ type: "ERROR", payload: errorMessage });
+        } else if (!moviesIdRes.length) {
+          toastDispatch({ type: "ERROR", payload: "No search result." });
+          setSearchedResults([]);
+        } else {
+          const filteredMoviesOnly = moviesIdRes?.filter(
+            (data) => !ignoreSubString.some((r) => data.description.includes(r))
+          );
+          filteredMoviesOnly.sort(function (a, b) {
+            let aTemp = Number(a.description.substring(1, 5));
+            let bTemp = Number(b.description.substring(1, 5));
 
-      const filteredMoviesOnly = moviesIdRes?.filter(
-        (data) => !ignoreSubString.some((r) => data.description.includes(r))
-      );
-      filteredMoviesOnly.sort(function (a, b) {
-        let aTemp = Number(a.description.substring(1, 5));
-        let bTemp = Number(b.description.substring(1, 5));
+            return bTemp - aTemp;
+          });
 
-        return bTemp - aTemp;
-      });
-
-      setSearchedResults(filteredMoviesOnly);
+          setSearchedResults(filteredMoviesOnly);
+        }
+      } catch (err) {
+        if (err.name === "AbortError") console.log("previous api call cancelled");
+        else {
+          console.log(err);
+          setLoadingMovies(false);
+        }
+      }
     }
   };
 
@@ -97,19 +116,25 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
     }
   };
 
-  const debouncedSearch = useCallback(debounce(searchMovie, 300), []);
+  const debouncedSearch = useCallback(debounce(searchMovie, 600), []);
+
+  const handleSearchChange = (e) => {
+    let value = e.target.value;
+    setTypedMovie(value);
+    if (value.length > 3) debouncedSearch(e);
+    if (!value.trim()) {
+      if (controller) controller.current.abort();
+      setSearchedResults([]);
+    }
+  };
 
   return (
     <div className="search-container" ref={wrapperRef} style={{ width: width }}>
-      <form onSubmit={searchMovie} className="search-field">
+      <form onSubmit={searchMovie} className="search-field search-width">
         <input
           type="text"
           value={typedMovie}
-          onChange={(e) => {
-            let value = e.target.value;
-            setTypedMovie(value);
-            if (value.length > 3) debouncedSearch(e);
-          }}
+          onChange={handleSearchChange}
           placeholder="Search movie or web series"
           ref={ref}
         />
@@ -135,7 +160,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       </form>
 
       <div
-        className={`search-results${
+        className={`search-results search-width${
           searchedResults.length ? " search-results-open" : " search-results-close"
         }`}
       >

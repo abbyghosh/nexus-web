@@ -17,11 +17,7 @@
       color: var(--snow-white);
       border: 1px solid var(--black-600);
       border-radius: 4px;
-      $marg: 10px;
-      width: calc(100% - (#{$marg} * 2));
       font-size: 18px;
-      box-sizing: border-box;
-      margin: 0 $marg;
 
       &:focus-visible {
         outline: 1px solid #9b9b9b;
@@ -49,6 +45,13 @@
     }
   }
 
+  .search-width {
+    $marg: 10px;
+    width: calc(100% - (#{$marg} * 2));
+    margin: 0 $marg;
+    box-sizing: border-box;
+  }
+
   .search-results {
     position: absolute;
     top: 42px;
@@ -56,7 +59,6 @@
     color: var(--snow-white);
     padding: 10px;
 
-    width: 100%;
     box-sizing: border-box;
     overflow: auto;
     z-index: 4;
