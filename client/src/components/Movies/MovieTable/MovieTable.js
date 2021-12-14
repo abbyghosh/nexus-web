@@ -29,8 +29,8 @@ function MovieTable({
       <table className="card-table">
         <thead>
           <tr>
-            <th width="40%">Name</th>
-            <th width="10%">
+            <th width="35%">Name</th>
+            <th width="15%">
               <Filterable
                 headerLabel="Source"
                 filterableFields={sourceFilter}
