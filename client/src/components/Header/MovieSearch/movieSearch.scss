@@ -18,6 +18,8 @@
       border: 1px solid var(--black-600);
       border-radius: 4px;
       font-size: 18px;
+      width: 100%;
+      box-sizing: border-box;
 
       &:focus-visible {
         outline: 1px solid #9b9b9b;
