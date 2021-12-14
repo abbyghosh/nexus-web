@@ -22,64 +22,6 @@
       &:not(:last-child) {
         border-right: 2px solid var(--black-500);
       }
-
-      .head-with-icon {
-        @include flexbox(center);
-
-        .sort-grouped {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          margin-left: 20px;
-
-          svg:nth-child(2) {
-            transform: rotateX(180deg);
-          }
-        }
-      }
-      .head-with-filter {
-        @include flexbox(center);
-        .filter-wrap {
-          position: relative;
-          margin-left: 20px;
-
-          .filter-options {
-            position: absolute;
-            top: 20px;
-            /* right: 50%;
-            transform: translateX(50%); */
-            right: 0px;
-            background-color: var(--black-700);
-            padding: 6px 10px;
-            width: max-content;
-            z-index: 1;
-
-            .control {
-              @include flexbox(null, center, 8px);
-              margin-bottom: 6px;
-
-              &:last-child {
-                margin-bottom: 0px;
-              }
-
-              input[type="checkbox"] {
-                padding: 0;
-                margin: 0;
-              }
-            }
-            .reset {
-              text-align: right;
-              font-size: 14px;
-              font-weight: normal;
-              color: var(--black-200);
-              cursor: pointer;
-              border-bottom: 1px solid var(--black-600);
-              padding-bottom: 4px;
-              margin-bottom: 4px;
-            }
-          }
-        }
-      }
     }
   }
 
@@ -107,6 +49,65 @@
     input {
       width: 100%;
       box-sizing: border-box;
+    }
+  }
+}
+
+.head-with-icon {
+  @include flexbox(center);
+
+  .sort-grouped {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-left: 20px;
+
+    svg:nth-child(2) {
+      transform: rotateX(180deg);
+    }
+  }
+}
+
+.head-with-filter {
+  @include flexbox(center);
+  .filter-wrap {
+    position: relative;
+    margin-left: 20px;
+
+    .filter-options {
+      position: absolute;
+      top: 20px;
+      /* right: 50%;
+      transform: translateX(50%); */
+      right: 0px;
+      background-color: var(--black-700);
+      padding: 6px 10px;
+      width: max-content;
+      z-index: 1;
+
+      .control {
+        @include flexbox(null, center, 8px);
+        margin-bottom: 6px;
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+
+        input[type="checkbox"] {
+          padding: 0;
+          margin: 0;
+        }
+      }
+      .reset {
+        text-align: right;
+        font-size: 14px;
+        font-weight: normal;
+        color: var(--black-200);
+        cursor: pointer;
+        border-bottom: 1px solid var(--black-600);
+        padding-bottom: 4px;
+        margin-bottom: 4px;
+      }
     }
   }
 }
