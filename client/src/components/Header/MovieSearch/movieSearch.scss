@@ -98,6 +98,17 @@
       &:hover {
         background-color: var(--black-400);
       }
+      .content {
+        flex-grow: 1;
+
+        .title {
+          @include flexbox(space-between, center, 4, row);
+
+          p {
+            margin: 0;
+          }
+        }
+      }
     }
 
     .error-msg {

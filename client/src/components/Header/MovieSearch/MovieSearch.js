@@ -6,6 +6,7 @@ import useDetectOutside from "../../../customHooks/useDetectOutside";
 import { ReactComponent as SearchIcon } from "../../../assets/icons/search.svg";
 import { ReactComponent as RubberIcon } from "../../../assets/icons/rubber.svg";
 import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg";
+import { ReactComponent as TickIcon } from "../../../assets/icons/tick.svg";
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
 import { debounce } from "../../../utils";
@@ -16,7 +17,10 @@ import "./movieSearch.scss";
 const MovieSearch = React.forwardRef(({ width }, ref) => {
   const ignoreSubString = ["(Video)", "(Short)"];
   let {
-    movie: { getAllMovies },
+    movie: {
+      movies: { data: allMovies },
+      getAllMovies,
+    },
     toast: { toastDispatch },
   } = useContext(GlobalContext);
 
@@ -28,11 +32,16 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
   const [searchedResults, setSearchedResults] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [loadingMovies, setLoadingMovies] = useState(false);
+  const [movieIds, setMovieIds] = useState([]);
 
   useEffect(() => {
     setSearchedResults([]);
     setErrorMsg("");
   }, [clickedOutside]);
+
+  useEffect(() => {
+    setMovieIds(() => allMovies.map((ele) => ele.imDbId));
+  }, [allMovies]);
 
   const searchMovie = async (e) => {
     e?.preventDefault();
@@ -105,7 +114,6 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
 
     try {
       await axios.post(`${BASE_URL}/movies`, movieBody);
-      toastDispatch({ type: "SUCCESS", payload: "Movie Added" });
       getAllMovies();
     } catch (err) {
       console.log("err ", err.response);
@@ -172,9 +180,11 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
             className="search-results-item"
           >
             <img src={result.image} alt={`${result.title} poster`} width="50" height="50" />
-            <div>
-              {result.title}
-              <br />
+            <div className="content">
+              <div className="title">
+                <p>{result.title}</p>
+                {movieIds.includes(result.id) && <TickIcon width="22" height="22" />}
+              </div>
               {result.description}
             </div>
           </div>
