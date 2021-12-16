@@ -18,7 +18,7 @@ function App() {
     if (isActive) {
       setTimeout(() => {
         toastDispatch({ type: "DISABLE" });
-      }, 3000);
+      }, 5000);
     }
   }, [isActive]);
 

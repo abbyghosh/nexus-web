@@ -1,22 +1,32 @@
 .toast {
   position: fixed;
-  bottom: 20px;
+  top: 14px;
+  right: 34px;
+  z-index: 1;
   /* left: 50%; */
   /* transform: translate(-50%, 0); */
-  font-size: 16px;
-  font-weight: 700;
-  padding: 6px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 350px;
+  padding: 6px 14px;
   margin: 0 30px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  > svg {
+    flex-shrink: 0;
+  }
 
   &.success {
-    background-color: #1aa31a;
-    border: 2px solid #189118;
+    background-color: #699f4c;
   }
   &.error {
-    background-color: red;
+    background-color: #de4e4e;
   }
   &.warning {
-    background-color: yellow;
+    background-color: #bf873e;
   }
   &.info {
     background-color: red;

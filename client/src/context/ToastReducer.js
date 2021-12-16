@@ -14,6 +14,13 @@ const ToastReducer = (state, action) => {
         severity: "error",
       };
 
+    case "WARNING":
+      return {
+        isActive: true,
+        msg: action.payload,
+        severity: "warning",
+      };
+
     case "DISABLE":
       return {
         isActive: false,

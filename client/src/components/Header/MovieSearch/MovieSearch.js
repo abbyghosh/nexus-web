@@ -15,7 +15,6 @@ import { GlobalContext } from "../../../context/GlobalState";
 import "./movieSearch.scss";
 
 const MovieSearch = React.forwardRef(({ width }, ref) => {
-  const ignoreSubString = ["(Video)", "(Short)"];
   let {
     movie: {
       movies: { data: allMovies },
@@ -65,9 +64,11 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
           toastDispatch({ type: "ERROR", payload: "No search result." });
           setSearchedResults([]);
         } else {
+          const ignoreSubString = ["(Video)", "(Short)"];
           const filteredMoviesOnly = moviesIdRes?.filter(
             (data) => !ignoreSubString.some((r) => data.description.includes(r))
           );
+
           filteredMoviesOnly.sort(function (a, b) {
             let aTemp = Number(a.description.substring(1, 5));
             let bTemp = Number(b.description.substring(1, 5));
@@ -87,15 +88,37 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
     }
   };
 
-  const getMovieById = async (movieId) => {
-    const { data: movieRes } = await axios.get(
+  const getMovieById = async (movieId, movie) => {
+    let { data: movieRes } = await axios.get(
       `https://imdb-api.com/en/API/Title/${IMDB_API_KEY[1]}/${movieId}/Ratings`
     );
+
+    let body;
+    if (!movieRes.ratings) {
+      toastDispatch({
+        type: "WARNING",
+        payload: '"Ratings" is null. Saving data from "Search Results"',
+      });
+      movieRes = undefined;
+      body = {
+        image: movie.image,
+        genres: null,
+        ratings: {
+          imDbId: movie.id,
+          title: movie.title,
+          type: null,
+          year: movie.description.substring(1, 5),
+          imDb: null,
+        },
+        detailsFound: false,
+      };
+    }
+
     const {
       image,
       genres,
       ratings: { imDbId, title, type, year, imDb },
-    } = movieRes;
+    } = movieRes || body;
 
     let movieBody = {
       imDbId,
@@ -104,7 +127,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       type,
       year,
       imDb,
-      genres: genres.split(", "),
+      genres: genres ? genres.split(", ") : [],
       watched: false,
       source: "",
       sourceUrl: "",
@@ -120,7 +143,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       setErrorMsg(err.response.data?.message);
       setTimeout(() => {
         setErrorMsg("");
-      }, 3000);
+      }, 5000);
     }
   };
 
@@ -131,7 +154,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
     setTypedMovie(value);
     if (value.length > 3) debouncedSearch(e);
     if (!value.trim()) {
-      if (controller) controller.current.abort();
+      if (controller.current) controller.current.abort();
       setSearchedResults([]);
     }
   };
@@ -176,7 +199,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
         {searchedResults.map((result) => (
           <div
             key={result.id}
-            onClick={() => getMovieById(result.id)}
+            onClick={() => getMovieById(result.id, result)}
             className="search-results-item"
           >
             <img src={result.image} alt={`${result.title} poster`} width="50" height="50" />

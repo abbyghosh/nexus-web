@@ -29,15 +29,6 @@
         flex-grow: 1;
         min-width: 0;
 
-        .movie-name {
-          margin-top: 0;
-          font-weight: 500;
-        }
-        .source {
-          color: #ffb6b6;
-          font-weight: 700;
-          letter-spacing: 1px;
-        }
         > div {
           margin-bottom: 6px;
           height: 20px;
@@ -45,6 +36,18 @@
           p {
             margin: 0;
           }
+        }
+
+        .movie-name {
+          margin-top: 0;
+          margin-bottom: 6px;
+          font-weight: 500;
+        }
+
+        .source {
+          color: #ffb6b6;
+          font-weight: 700;
+          letter-spacing: 1px;
         }
 
         input[name="watchQueue"] {

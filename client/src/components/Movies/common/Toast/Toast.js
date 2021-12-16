@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../../../../context/GlobalState";
 
+import { ReactComponent as SuccessIcon } from "../../../../assets/icons/success.svg";
+import { ReactComponent as ErrorIcon } from "../../../../assets/icons/error.svg";
+import { ReactComponent as WarningIcon } from "../../../../assets/icons/warning.svg";
+
 import "./toast.scss";
 
 function Toast() {
@@ -10,7 +14,14 @@ function Toast() {
     },
   } = useContext(GlobalContext);
 
-  return <div className={`toast ${severity}`}>{msg}</div>;
+  return (
+    <div className={`toast ${severity}`}>
+      {msg}
+      {severity === "success" && <SuccessIcon width="20" />}
+      {severity === "error" && <ErrorIcon width="20" />}
+      {severity === "warning" && <WarningIcon width="20" />}
+    </div>
+  );
 }
 
 export default Toast;
