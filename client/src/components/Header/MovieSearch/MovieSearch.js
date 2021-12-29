@@ -9,7 +9,7 @@ import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg
 import { ReactComponent as TickIcon } from "../../../assets/icons/tick.svg";
 
 import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
-import { debounce } from "../../../utils";
+import { debounce, scrollToMovieCardPixel } from "../../../utils";
 import { GlobalContext } from "../../../context/GlobalState";
 
 import "./movieSearch.scss";
@@ -21,6 +21,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       getAllMovies,
     },
     toast: { toastDispatch },
+    scrollBy: { setScrollByValue },
   } = useContext(GlobalContext);
 
   const wrapperRef = useRef(null);
@@ -79,9 +80,10 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
           setSearchedResults(filteredMoviesOnly);
         }
       } catch (err) {
-        if (err.name === "AbortError") console.log("previous api call cancelled");
+        if (err.message === "canceled") console.log("previous api call cancelled");
         else {
           console.log(err);
+          toastDispatch({ type: "ERROR", payload: JSON.stringify(err) });
           setLoadingMovies(false);
         }
       }
@@ -138,6 +140,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
     try {
       await axios.post(`${BASE_URL}/movies`, movieBody);
       getAllMovies();
+      addOffset(movieBody.imDbId);
     } catch (err) {
       console.log("err ", err.response);
       setErrorMsg(err.response.data?.message);
@@ -157,6 +160,11 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       if (controller.current) controller.current.abort();
       setSearchedResults([]);
     }
+  };
+
+  const addOffset = (id) => {
+    let topPx = scrollToMovieCardPixel(id);
+    setScrollByValue(topPx);
   };
 
   return (
@@ -199,7 +207,9 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
         {searchedResults.map((result) => (
           <div
             key={result.id}
-            onClick={() => getMovieById(result.id, result)}
+            onClick={() =>
+              movieIds.includes(result.id) ? addOffset(result.id) : getMovieById(result.id, result)
+            }
             className="search-results-item"
           >
             <img src={result.image} alt={`${result.title} poster`} width="50" height="50" />

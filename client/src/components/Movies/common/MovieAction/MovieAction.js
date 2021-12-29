@@ -30,7 +30,7 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
 
   return (
     <div className="actions">
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", display: "flex" }}>
         <EditIcon
           onClick={() => {
             setId(id);

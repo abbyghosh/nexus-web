@@ -53,13 +53,18 @@
   }
 }
 
+.movie-card-wrapper {
+  .head-with-icon .sort-grouped,
+  .head-with-filter .filter-wrap {
+    margin-left: 8px;
+  }
+}
+
 .head-with-icon {
-  @include flexbox(center);
+  @include flexbox(center, center);
 
   .sort-grouped {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    @include flexbox(null, null, 2px, column);
     margin-left: 20px;
 
     svg:nth-child(2) {
@@ -69,7 +74,7 @@
 }
 
 .head-with-filter {
-  @include flexbox(center);
+  @include flexbox(null, center);
   .filter-wrap {
     position: relative;
     margin-left: 20px;

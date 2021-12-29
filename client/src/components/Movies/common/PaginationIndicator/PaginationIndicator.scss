@@ -1,0 +1,13 @@
+@import "../../../../styles/abstract";
+
+.pagination-indicator {
+  @include flexbox(null, center, 4px);
+
+  svg {
+    display: flex;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

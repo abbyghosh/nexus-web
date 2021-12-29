@@ -11,3 +11,9 @@ export const debounce = (fn, time) => {
     }, time);
   };
 };
+
+export const scrollToMovieCardPixel = (id) => {
+  let eleSizes = document.getElementById(id).getBoundingClientRect();
+  let vhInPixel = window.innerHeight;
+  return eleSizes.top - (vhInPixel - (eleSizes.height + 10));
+};

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useState } from "react";
 import axios from "axios";
 
 import MoviesReducer from "./MoviesReducer";
@@ -21,6 +21,7 @@ const initialToastState = {
 export const GlobalProvider = ({ children }) => {
   const [movieState, movieDispatch] = useReducer(MoviesReducer, initialState);
   const [toastState, toastDispatch] = useReducer(ToastReducer, initialToastState);
+  const [scrollByValue, setScrollByValue] = useState(null);
 
   async function getAllMovies() {
     try {
@@ -38,6 +39,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         movie: { movies: movieState, movieDispatch, getAllMovies },
         toast: { toastState, toastDispatch },
+        scrollBy: { scrollByValue, setScrollByValue },
       }}
     >
       {children}

@@ -1,11 +1,12 @@
 @import "../../../../styles/abstract";
 
 .movie-card-wrapper .actions {
-  min-width: 130px;
+  width: 80%;
+  padding: 6px 14px;
   margin: 0 auto;
 
   svg {
-    width: 22px;
+    width: 24px;
   }
 }
 

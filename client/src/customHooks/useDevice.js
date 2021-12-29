@@ -6,13 +6,12 @@ function useDevice() {
   const mobileSize = 600;
   const tabletSize = 768;
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isMobile, setIsMobile] = useState();
+  const [isTablet, setIsTablet] = useState();
+  const [isDesktop, setIsDesktop] = useState();
 
   const handleWindowResize = () => {
     const width = window.innerWidth;
-    console.log(width);
     setIsMobile(width <= mobileSize);
     setIsTablet(width > mobileSize && width <= tabletSize && !width <= mobileSize);
     setIsDesktop(width > tabletSize);

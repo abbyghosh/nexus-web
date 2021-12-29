@@ -15,7 +15,7 @@ function Filterable({ headerLabel, filterableFields, handleFilterableFields, fil
 
   return (
     <div className="head-with-filter" ref={wrapperRef}>
-      {headerLabel}
+      <p>{headerLabel}</p>
       <div className="filter-wrap">
         <FilterIcon
           onClick={() => setShowSourceFilter((prev) => !prev)}

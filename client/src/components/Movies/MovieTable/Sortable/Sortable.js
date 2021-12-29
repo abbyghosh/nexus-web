@@ -13,7 +13,7 @@ function Sortable({ handleSortBy, headerLabel, field, sortedName, sortedOrder })
         })
       }
     >
-      {headerLabel}
+      <p>{headerLabel}</p>
       <div className="sort-grouped">
         <SortIcon fill={sortedName === field && sortedOrder === 1 ? "#00ffe7" : "white"} />
         <SortIcon fill={sortedName === field && sortedOrder === 2 ? "#00ffe7" : "white"} />
