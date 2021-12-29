@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState, useCallback } from "react";
 import axios from "axios";
 
 import MovieCard from "./MovieCard/MovieCard";
@@ -15,7 +15,7 @@ import { BASE_URL, ORDER_BY } from "../../utils/constants";
 import "./movies.scss";
 import { GlobalContext } from "../../context/GlobalState";
 import useDevice from "../../customHooks/useDevice";
-import { scrollToMovieCardPixel } from "../../utils";
+import { debounce, scrollToMovieCardPixel } from "../../utils";
 
 function Main() {
   const { isMobile } = useDevice();
@@ -36,8 +36,9 @@ function Main() {
   const [editId, setEditId] = useState(null);
   const [updateBody, setUpdateBody] = useState({});
   const [sortedMovies, setSortedMovies] = useState([]);
-
   const [sortBy, setSortBy] = useState({ name: "", order: 0 });
+  const [initiateScroll, setInitiateScroll] = useState(false);
+  let scrollTimer;
 
   useEffect(() => {
     if (isMobile !== undefined) {
@@ -62,6 +63,17 @@ function Main() {
   useEffect(() => {
     if (scrollByValue) addOffsetRef.current.scrollBy({ top: scrollByValue, behavior: "smooth" });
   }, [scrollByValue]);
+
+  const initiateAnimateOnScroll = (e) => {
+    setInitiateScroll(true);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      console.log("scroll run");
+      setInitiateScroll(false);
+    }, 6000);
+  };
+
+  const debouncedScroll = useCallback(debounce(initiateAnimateOnScroll, 600), []);
 
   const getSortedMovies = () => {
     let movies = [...allMovies];
@@ -96,7 +108,7 @@ function Main() {
   if (isTableView === undefined) return <div>Loading...</div>;
 
   return (
-    <main className="movies-container" ref={addOffsetRef}>
+    <main className="movies-container" ref={addOffsetRef} onScroll={debouncedScroll}>
       <div>
         <div onClick={getAllMovies}>
           <RefreshIcon width="20" />
@@ -151,7 +163,7 @@ function Main() {
         )}
       </div>
       <div
-        className="goToTop"
+        className={`goToTop${initiateScroll ? " goToTop-animate" : ""}`}
         onClick={() => {
           let topPx = scrollToMovieCardPixel(sortedMovies[0].imDbId);
           setScrollByValue(topPx);

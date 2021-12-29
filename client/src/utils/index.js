@@ -1,3 +1,9 @@
+/**
+ *
+ * @param {Function} fn - Calback Function
+ * @param {Number} time - Time in ms
+ * @returns Function
+ */
 export const debounce = (fn, time) => {
   let timer;
 

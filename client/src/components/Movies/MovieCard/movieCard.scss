@@ -5,6 +5,7 @@
   grid-template-columns: repeat(auto-fill, 24%);
   justify-content: space-between;
   grid-gap: 10px;
+  margin-bottom: 20px;
 
   @include mobile {
     grid-template-columns: repeat(auto-fill, 100%);
@@ -17,13 +18,14 @@
     @include flexbox(space-between, null, null, column);
 
     .movie-details {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+
       img {
         height: 140px;
         width: 100px;
       }
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
 
       .movie-content {
         flex-grow: 1;

@@ -21,11 +21,13 @@ code {
 }
 
 main {
-  width: 90%;
+  $padding: 20px;
+  width: calc(90% + (2 * #{$padding}));
   margin: 0 auto;
   margin-top: $header-height;
-  $padding: 20px;
   padding: $padding;
-  height: calc(100vh - (60px + (2 * #{$padding})));
+  padding-bottom: 0;
+  height: calc(100vh - (60px - 4px));
   overflow: auto;
+  box-sizing: border-box;
 }
