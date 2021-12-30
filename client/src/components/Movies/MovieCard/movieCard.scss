@@ -7,6 +7,14 @@
   grid-gap: 10px;
   margin-bottom: 20px;
 
+  @include tablet-l {
+    grid-template-columns: repeat(auto-fill, 32%);
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(auto-fill, 49%);
+  }
+
   @include mobile {
     grid-template-columns: repeat(auto-fill, 100%);
   }

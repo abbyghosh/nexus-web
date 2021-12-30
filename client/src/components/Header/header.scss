@@ -7,10 +7,8 @@ header {
   inset: 0;
   z-index: 1;
 
-  > div {
+  .header-inner {
     height: 100%;
-    width: 90%;
-    margin: 0 auto;
     @include flexbox(space-between, center);
     .search-with-nav {
       @include flexbox(null, center, 50px);

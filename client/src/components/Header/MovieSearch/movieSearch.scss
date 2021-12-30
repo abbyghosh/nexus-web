@@ -3,7 +3,7 @@
 .search-container {
   position: relative;
   display: inline-block;
-  width: 300px;
+  width: 320px;
 
   .search-field {
     position: relative;
@@ -11,13 +11,13 @@
     width: 100%;
 
     > input {
-      padding: 10px 10px;
-      padding-right: 100px;
+      padding: 6px 10px;
+      font-size: 16px;
+      padding-right: 90px;
       background-color: var(--black-500);
       color: var(--snow-white);
       border: 1px solid var(--black-600);
       border-radius: 4px;
-      font-size: 18px;
       width: 100%;
       box-sizing: border-box;
 
@@ -29,7 +29,7 @@
     > div {
       position: absolute;
       right: 16px;
-      top: 10px;
+      top: 6px;
       z-index: 1;
       @include flexbox(null, center, 8px);
 
@@ -42,6 +42,11 @@
 
         &:hover svg {
           fill: #dedede;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
         }
       }
     }
@@ -119,6 +124,25 @@
       top: 0;
       padding: 6px;
       background-color: var(--black-600);
+    }
+  }
+
+  &.mobile-search {
+    .search-field {
+      > input {
+        font-size: 18px;
+        padding: 10px 10px;
+        padding-right: 100px;
+      }
+
+      > div {
+        top: 10px;
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }

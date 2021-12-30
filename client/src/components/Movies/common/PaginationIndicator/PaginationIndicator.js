@@ -11,7 +11,7 @@ function PaginationIndicator({ totalCount, displayCount, itemPerPage = 20 }) {
   return (
     <div className="pagination-indicator">
       <LeftChevronIcon
-        width="20"
+        width="26"
         onClick={() =>
           setPage((prev) => {
             if (page === 1) return prev;
@@ -20,19 +20,21 @@ function PaginationIndicator({ totalCount, displayCount, itemPerPage = 20 }) {
         }
       />
 
-      <p>
-        {page} of {Math.ceil(totalCount / itemPerPage)} (
+      <p style={{ textAlign: "center" }}>
+        {page} of {Math.ceil(totalCount / itemPerPage)}
+        <br />(
         {page === Math.ceil(totalCount / itemPerPage)
           ? (page - 1) * itemPerPage + (totalCount - (page - 1) * itemPerPage)
-          : page * itemPerPage}{" "}
-        / {totalCount})
+          : page * itemPerPage}
+        {" / "}
+        {totalCount})
       </p>
 
       <RightChevronIcon
-        width="20"
+        width="26"
         onClick={() =>
           setPage((prev) => {
-            if (Math.ceil(totalCount / 20) === page) return prev;
+            if (Math.ceil(totalCount / itemPerPage) === page) return prev;
             return prev + 1;
           })
         }

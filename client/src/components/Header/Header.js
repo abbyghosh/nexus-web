@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
-import "./header.scss";
+import useDevice from "../../customHooks/useDevice";
+import MenuOverlay from "./MenuOverlay/MenuOverlay";
 import MovieSearch from "./MovieSearch/MovieSearch";
+
 import { ReactComponent as LogoIcon } from "../../assets/images/name-logo.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as ContractIcon } from "../../assets/icons/contract.svg";
-import { NavLink } from "react-router-dom";
-import useDevice from "../../customHooks/useDevice";
-import MenuOverlay from "./MenuOverlay/MenuOverlay";
+
+import "./header.scss";
 
 function Header() {
   const { isMobile } = useDevice();
@@ -23,7 +25,7 @@ function Header() {
 
   return (
     <header>
-      <div>
+      <div className="header-inner">
         {isMobile && <MenuOverlay />}
 
         <LogoIcon width="50" />
@@ -64,7 +66,7 @@ function Header() {
           )
         ) : null}
       </div>
-      {isSearchOpen && <MovieSearch width="100%" ref={searchRef} />}
+      {isSearchOpen && <MovieSearch width="100%" ref={searchRef} isMobile={isMobile} />}
     </header>
   );
 }

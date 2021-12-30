@@ -10,6 +10,30 @@ body {
   font-size: 14px;
   background-color: var(--black-700);
   color: var(--snow-white);
+
+  scrollbar-color: var(--black-500) var(--black-700);
+  scrollbar-width: thin;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--black-700);
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--black-500);
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--black-600);
+  }
 }
 
 code {
@@ -20,14 +44,24 @@ code {
   @include truncate;
 }
 
+.header-inner,
 main {
-  $padding: 20px;
-  width: calc(90% + (2 * #{$padding}));
+  max-width: $max-width;
   margin: 0 auto;
+
+  @include tablet {
+    padding-inline: 30px;
+  }
+  @include mobile {
+    padding-inline: 20px;
+  }
+}
+
+main.movies-container {
+  $padding: 20px;
   margin-top: $header-height;
-  padding: $padding;
-  padding-bottom: 0;
-  height: calc(100vh - (60px - 4px));
+  padding-top: $padding;
+  height: calc(100vh - (60px + #{$padding}));
   overflow: auto;
   box-sizing: border-box;
 }

@@ -14,7 +14,7 @@ import { GlobalContext } from "../../../context/GlobalState";
 
 import "./movieSearch.scss";
 
-const MovieSearch = React.forwardRef(({ width }, ref) => {
+const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
   let {
     movie: {
       movies: { data: allMovies },
@@ -143,7 +143,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
       addOffset(movieBody.imDbId);
     } catch (err) {
       console.log("err ", err.response);
-      setErrorMsg(err.response.data?.message);
+      setErrorMsg(err.response?.data?.message);
       setTimeout(() => {
         setErrorMsg("");
       }, 5000);
@@ -164,11 +164,20 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
 
   const addOffset = (id) => {
     let topPx = scrollToMovieCardPixel(id);
-    setScrollByValue(topPx);
+    if (topPx === "No Value")
+      toastDispatch({
+        type: "ERROR",
+        payload: "Updated movies not loaded yet.",
+      });
+    else setScrollByValue(topPx);
   };
 
   return (
-    <div className="search-container" ref={wrapperRef} style={{ width: width }}>
+    <div
+      className={`search-container${isMobile ? " mobile-search" : ""}`}
+      ref={wrapperRef}
+      style={{ width: width }}
+    >
       <form onSubmit={searchMovie} className="search-field search-width">
         <input
           type="text"
@@ -178,13 +187,11 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
           ref={ref}
         />
         <div>
-          {loadingMovies && <LoadingIcon width="22" height="22" />}
+          {loadingMovies && <LoadingIcon />}
 
           <button type="submit">
             {typedMovie && (
               <RubberIcon
-                width="22"
-                height="22"
                 onClick={() => {
                   setTypedMovie("");
                   setSearchedResults([]);
@@ -193,7 +200,7 @@ const MovieSearch = React.forwardRef(({ width }, ref) => {
             )}
           </button>
           <button type="submit">
-            <SearchIcon width="24" height="24" />
+            <SearchIcon />
           </button>
         </div>
       </form>

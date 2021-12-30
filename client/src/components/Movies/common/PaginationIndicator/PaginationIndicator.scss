@@ -1,7 +1,7 @@
 @import "../../../../styles/abstract";
 
 .pagination-indicator {
-  @include flexbox(null, center, 4px);
+  @include flexbox(null, center, 10px);
 
   svg {
     display: flex;

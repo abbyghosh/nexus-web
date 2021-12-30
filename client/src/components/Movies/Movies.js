@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState, useCallback } from "react";
 import axios from "axios";
 
+import { GlobalContext } from "../../context/GlobalState";
+import useDevice from "../../customHooks/useDevice";
 import MovieCard from "./MovieCard/MovieCard";
 import MovieTable from "./MovieTable/MovieTable";
 
@@ -10,12 +12,10 @@ import { ReactComponent as NotWatchedIcon } from "../../assets/icons/not-watched
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as GoToTopIcon } from "../../assets/icons/circle-arrow-top.svg";
 
+import { debounce, scrollToMovieCardPixel } from "../../utils";
 import { BASE_URL, ORDER_BY } from "../../utils/constants";
 
 import "./movies.scss";
-import { GlobalContext } from "../../context/GlobalState";
-import useDevice from "../../customHooks/useDevice";
-import { debounce, scrollToMovieCardPixel } from "../../utils";
 
 function Main() {
   const { isMobile } = useDevice();
@@ -125,6 +125,7 @@ function Main() {
         <div
           className={isTableView ? null : "no-table-view"}
           onClick={() => setIsTableView((prev) => !prev)}
+          style={{ color: isTableView ? "#9b9b9b" : "#666666" }}
         >
           <TableIcon width="20" />
         </div>

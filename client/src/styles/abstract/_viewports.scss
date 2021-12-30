@@ -8,6 +8,11 @@
     @content;
   }
 }
+@mixin tablet-l {
+  @media only screen and (max-width: 1024px) {
+    @content;
+  }
+}
 @mixin desktop {
   @media only screen and (max-width: 992px) {
     @content;

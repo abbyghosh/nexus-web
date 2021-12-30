@@ -10,6 +10,8 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  margin-bottom: 20px;
+
   thead {
     th {
       padding: 6px;
@@ -74,7 +76,7 @@
 }
 
 .head-with-filter {
-  @include flexbox(null, center);
+  @include flexbox(center, center);
   .filter-wrap {
     position: relative;
     margin-left: 20px;

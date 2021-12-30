@@ -1,10 +1,21 @@
 @import "../../styles/abstract";
 
 main.movies-container {
+  padding-right: 10px;
+
   .goToTop {
     position: fixed;
     bottom: 32px;
     right: 20px;
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      color: #fb9a9a;
+    }
+
+    svg {
+      fill: currentColor;
+    }
 
     &-animate {
       animation: bounce 3s 2s infinite;

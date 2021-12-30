@@ -78,7 +78,7 @@ function MovieTable({
             }) =>
               watched === displayWatched &&
               (sourceFilter.length === 0 || sourceFilter.includes(source)) && (
-                <tr key={id}>
+                <tr key={id} id={imDbId}>
                   <td>
                     <span
                       onMouseEnter={() => setMovieBannerPreview(image)}
