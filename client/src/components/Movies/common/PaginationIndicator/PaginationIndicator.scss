@@ -1,8 +1,20 @@
 @import "../../../../styles/abstract";
 
 .pagination-indicator {
-  @include flexbox(null, center, 10px);
+  @include flexbox(flex-end, center, 6px);
 
+  button {
+    background-color: transparent;
+    border: none;
+    /* width: auto; */
+    padding: 0;
+    &:disabled {
+      svg {
+        fill: var(--black-500);
+        cursor: not-allowed;
+      }
+    }
+  }
   svg {
     display: flex;
   }

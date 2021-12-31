@@ -8,7 +8,7 @@ import Filterable from "./Filterable/Filterable";
 import "./movieTable.scss";
 
 function MovieTable({
-  allMovies,
+  movies,
   sourceList,
   displayWatched,
   getAllMovies,
@@ -61,7 +61,7 @@ function MovieTable({
           </tr>
         </thead>
         <tbody>
-          {allMovies.map(
+          {movies.map(
             ({
               _id: id,
               imDbId,
@@ -76,7 +76,6 @@ function MovieTable({
               watched,
               rewatchScore,
             }) =>
-              watched === displayWatched &&
               (sourceFilter.length === 0 || sourceFilter.includes(source)) && (
                 <tr key={id} id={imDbId}>
                   <td>

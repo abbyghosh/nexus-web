@@ -55,19 +55,19 @@
   }
 }
 
-.movie-card-wrapper {
-  .head-with-icon .sort-grouped,
-  .head-with-filter .filter-wrap {
-    margin-left: 8px;
+.filtering-options {
+  .head-with-icon,
+  .head-with-filter {
+    flex-direction: row-reverse;
+    gap: 8px;
   }
 }
 
 .head-with-icon {
-  @include flexbox(center, center);
+  @include flexbox(center, center, 20px);
 
   .sort-grouped {
     @include flexbox(null, null, 2px, column);
-    margin-left: 20px;
 
     svg:nth-child(2) {
       transform: rotateX(180deg);
@@ -76,17 +76,16 @@
 }
 
 .head-with-filter {
-  @include flexbox(center, center);
+  @include flexbox(center, center, 20px);
   .filter-wrap {
     position: relative;
-    margin-left: 20px;
 
     .filter-options {
       position: absolute;
       top: 20px;
-      /* right: 50%;
-      transform: translateX(50%); */
-      right: 0px;
+      right: 50%;
+      transform: translateX(50%);
+      /* right: 0px; */
       background-color: var(--black-700);
       padding: 6px 10px;
       width: max-content;

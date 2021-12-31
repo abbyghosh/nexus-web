@@ -22,6 +22,7 @@ export const GlobalProvider = ({ children }) => {
   const [movieState, movieDispatch] = useReducer(MoviesReducer, initialState);
   const [toastState, toastDispatch] = useReducer(ToastReducer, initialToastState);
   const [scrollByValue, setScrollByValue] = useState(null);
+  const [movieCurrentPage, setMovieCurrentPage] = useState(1);
 
   async function getAllMovies() {
     try {
@@ -40,6 +41,7 @@ export const GlobalProvider = ({ children }) => {
         movie: { movies: movieState, movieDispatch, getAllMovies },
         toast: { toastState, toastDispatch },
         scrollBy: { scrollByValue, setScrollByValue },
+        pagination: { movieCurrentPage, setMovieCurrentPage },
       }}
     >
       {children}

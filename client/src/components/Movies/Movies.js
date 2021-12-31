@@ -21,7 +21,7 @@ function Main() {
   const { isMobile } = useDevice();
   const addOffsetRef = useRef(null);
 
-  let {
+  const {
     movie: {
       movies: { loading, error, data: allMovies },
       getAllMovies,
@@ -76,7 +76,7 @@ function Main() {
   const debouncedScroll = useCallback(debounce(initiateAnimateOnScroll, 600), []);
 
   const getSortedMovies = () => {
-    let movies = [...allMovies];
+    let movies = allMovies.filter((ele) => ele.watched === displayWatched);
     let sorted;
 
     if (sortBy.order > 0)
@@ -84,7 +84,7 @@ function Main() {
         if (ORDER_BY[sortBy.order] === "asc") return a[sortBy.name] - b[sortBy.name];
         return b[sortBy.name] - a[sortBy.name];
       });
-    setSortedMovies(sorted || allMovies);
+    setSortedMovies(sorted || movies);
   };
 
   const updateMovie = (id, body) => {
@@ -109,7 +109,7 @@ function Main() {
 
   return (
     <main className="movies-container" ref={addOffsetRef} onScroll={debouncedScroll}>
-      <div>
+      <div id="scroll-here">
         <div onClick={getAllMovies}>
           <RefreshIcon width="20" />
         </div>
@@ -131,10 +131,10 @@ function Main() {
         </div>
       </div>
 
-      <div className="main-wrapper">
+      <div className="main-inner-wrapper">
         {isTableView ? (
           <MovieTable
-            allMovies={sortedMovies}
+            movies={sortedMovies}
             sourceList={sourceList}
             displayWatched={displayWatched}
             getAllMovies={getAllMovies}
@@ -148,7 +148,7 @@ function Main() {
           />
         ) : (
           <MovieCard
-            allMovies={sortedMovies}
+            movies={sortedMovies}
             sourceList={sourceList}
             displayWatched={displayWatched}
             getAllMovies={getAllMovies}
@@ -166,7 +166,8 @@ function Main() {
       <div
         className={`goToTop${initiateScroll ? " goToTop-animate" : ""}`}
         onClick={() => {
-          let topPx = scrollToMovieCardPixel(sortedMovies[0].imDbId);
+          //scrollToMovieCardPixel(sortedMovies[(movieCurrentPage - 1) * itemPerPage + 1].imDbId)
+          let topPx = scrollToMovieCardPixel("scroll-here");
           setScrollByValue(topPx);
         }}
       >

@@ -1,44 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { ReactComponent as LeftChevronIcon } from "../../../../assets/icons/left-chevron.svg";
 import { ReactComponent as RightChevronIcon } from "../../../../assets/icons/right-chevron.svg";
 
+import { itemPerPage } from "../../../../utils/constants";
+
 import "./PaginationIndicator.scss";
 
-function PaginationIndicator({ totalCount, displayCount, itemPerPage = 20 }) {
-  const [page, setPage] = useState(1);
-
+function PaginationIndicator({ totalCount, currentPage, setCurrentPage }) {
   return (
     <div className="pagination-indicator">
-      <LeftChevronIcon
-        width="26"
-        onClick={() =>
-          setPage((prev) => {
-            if (page === 1) return prev;
+      <button
+        onClick={() => {
+          setCurrentPage((prev) => {
+            if (currentPage === 1) return prev;
             return prev - 1;
-          })
-        }
-      />
+          });
+        }}
+        disabled={currentPage === 1}
+      >
+        <LeftChevronIcon width="20" />
+      </button>
 
       <p style={{ textAlign: "center" }}>
-        {page} of {Math.ceil(totalCount / itemPerPage)}
-        <br />(
-        {page === Math.ceil(totalCount / itemPerPage)
-          ? (page - 1) * itemPerPage + (totalCount - (page - 1) * itemPerPage)
-          : page * itemPerPage}
+        <strong>{currentPage}</strong> of {Math.ceil(totalCount / itemPerPage)} (
+        {currentPage === Math.ceil(totalCount / itemPerPage)
+          ? (currentPage - 1) * itemPerPage + (totalCount - (currentPage - 1) * itemPerPage)
+          : currentPage * itemPerPage}
         {" / "}
-        {totalCount})
+        <strong>{totalCount})</strong>
       </p>
 
-      <RightChevronIcon
-        width="26"
-        onClick={() =>
-          setPage((prev) => {
-            if (Math.ceil(totalCount / itemPerPage) === page) return prev;
+      <button
+        onClick={() => {
+          setCurrentPage((prev) => {
+            if (Math.ceil(totalCount / itemPerPage) === currentPage) return prev;
             return prev + 1;
-          })
-        }
-      />
+          });
+        }}
+        disabled={currentPage === Math.ceil(totalCount / itemPerPage)}
+      >
+        <RightChevronIcon width="20" />
+      </button>
     </div>
   );
 }

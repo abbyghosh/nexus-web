@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { GlobalContext } from "../../../context/GlobalState";
+import { itemPerPage } from "../../../utils/constants";
 
 import TruncatedElement from "../../common/TruncatedElement/TruncatedElement";
 import MovieAction from "../common/MovieAction/MovieAction";
@@ -10,7 +12,7 @@ import Sortable from "../MovieTable/Sortable/Sortable";
 import "./movieCard.scss";
 
 function MovieCard({
-  allMovies,
+  movies,
   sourceList,
   displayWatched,
   getAllMovies,
@@ -23,19 +25,15 @@ function MovieCard({
   setUpdateBody,
   updateMovie,
 }) {
+  let {
+    pagination: { movieCurrentPage, setMovieCurrentPage },
+  } = useContext(GlobalContext);
+
   const [sourceFilter, setSourceFilter] = useState([]);
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 14,
-          marginBottom: 20,
-        }}
-      >
+      <div className="filtering-options">
         <div style={{ display: "flex", gap: 16 }}>
           <Sortable
             handleSortBy={setSortBy}
@@ -44,34 +42,43 @@ function MovieCard({
             sortedName={sortBy.name}
             sortedOrder={sortBy.order}
           />
-          {/* <Filterable
+          <Filterable
             headerLabel="Source"
             filterableFields={sourceFilter}
             handleFilterableFields={setSourceFilter}
             filterOptions={sourceList}
-          /> */}
+          />
         </div>
         <div>
-          <PaginationIndicator totalCount={allMovies.length} />
+          <PaginationIndicator
+            totalCount={movies?.length}
+            itemPerPage={itemPerPage}
+            currentPage={movieCurrentPage}
+            setCurrentPage={setMovieCurrentPage}
+          />
         </div>
       </div>
-      <div className="movie-card-wrapper">
-        {allMovies.map(
-          ({
-            _id: id,
-            imDbId,
-            image,
-            title,
-            year,
-            type,
-            imDb,
-            genres,
-            source,
-            watchQueue,
-            watched,
-            rewatchScore,
-          }) =>
-            watched === displayWatched && (
+
+      <div className={`movie-card-wrapper${displayWatched ? " watched-movie" : ""}`}>
+        {movies?.slice((movieCurrentPage - 1) * itemPerPage, movieCurrentPage * itemPerPage).map(
+          (
+            {
+              _id: id,
+              imDbId,
+              image,
+              title,
+              year,
+              type,
+              imDb,
+              genres,
+              source,
+              watchQueue,
+              watched,
+              rewatchScore,
+            },
+            i
+          ) =>
+            (sourceFilter.length === 0 || sourceFilter.includes(source)) && (
               <section className="movie-card" key={imDbId} id={imDbId}>
                 <div className="movie-details">
                   <img src={image} alt={`${title} poster`} />
@@ -147,6 +154,13 @@ function MovieCard({
             )
         )}
       </div>
+
+      <PaginationIndicator
+        totalCount={movies?.length}
+        itemPerPage={itemPerPage}
+        currentPage={movieCurrentPage}
+        setCurrentPage={setMovieCurrentPage}
+      />
     </>
   );
 }

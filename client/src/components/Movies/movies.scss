@@ -3,9 +3,13 @@
 main.movies-container {
   padding-right: 10px;
 
+  .main-inner-wrapper {
+    margin-bottom: 20px;
+  }
+
   .goToTop {
     position: fixed;
-    bottom: 32px;
+    bottom: 68px;
     right: 20px;
     -webkit-tap-highlight-color: transparent;
 

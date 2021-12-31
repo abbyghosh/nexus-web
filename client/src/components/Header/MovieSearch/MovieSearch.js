@@ -22,6 +22,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
     },
     toast: { toastDispatch },
     scrollBy: { setScrollByValue },
+    pagination: { setMovieCurrentPage },
   } = useContext(GlobalContext);
 
   const wrapperRef = useRef(null);
@@ -32,7 +33,8 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
   const [searchedResults, setSearchedResults] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [loadingMovies, setLoadingMovies] = useState(false);
-  const [movieIds, setMovieIds] = useState([]);
+  const [watchedMovieIds, setWatchedMovieIds] = useState([]);
+  const [notWatchedMovieIds, setNotWatchedMovieIds] = useState([]);
 
   useEffect(() => {
     setSearchedResults([]);
@@ -40,7 +42,8 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
   }, [clickedOutside]);
 
   useEffect(() => {
-    setMovieIds(() => allMovies.map((ele) => ele.imDbId));
+    setWatchedMovieIds(() => allMovies.filter((ele) => ele.watched).map((ele) => ele.imDbId));
+    setNotWatchedMovieIds(() => allMovies.filter((ele) => !ele.watched).map((ele) => ele.imDbId));
   }, [allMovies]);
 
   const searchMovie = async (e) => {
@@ -140,7 +143,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
     try {
       await axios.post(`${BASE_URL}/movies`, movieBody);
       getAllMovies();
-      addOffset(movieBody.imDbId);
+      addMoviePosition(movieBody.imDbId);
     } catch (err) {
       console.log("err ", err.response);
       setErrorMsg(err.response?.data?.message);
@@ -162,14 +165,23 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
     }
   };
 
-  const addOffset = (id) => {
-    let topPx = scrollToMovieCardPixel(id);
-    if (topPx === "No Value")
+  const addMoviePosition = (id) => {
+    if (notWatchedMovieIds.includes(id)) {
+      let index = notWatchedMovieIds.indexOf(id);
+      const pageNo = Math.ceil(index / 20);
+      setMovieCurrentPage(pageNo);
+
+      setTimeout(() => {
+        let topPx = scrollToMovieCardPixel(id);
+        setScrollByValue(topPx);
+      }, 0);
+    } else if (watchedMovieIds.includes(id)) {
+      console.log("Watched");
       toastDispatch({
-        type: "ERROR",
-        payload: "Updated movies not loaded yet.",
+        type: "INFO",
+        payload: "Movie present in watched section.",
       });
-    else setScrollByValue(topPx);
+    }
   };
 
   return (
@@ -215,7 +227,9 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
           <div
             key={result.id}
             onClick={() =>
-              movieIds.includes(result.id) ? addOffset(result.id) : getMovieById(result.id, result)
+              watchedMovieIds.includes(result.id) || notWatchedMovieIds.includes(result.id)
+                ? addMoviePosition(result.id)
+                : getMovieById(result.id, result)
             }
             className="search-results-item"
           >
@@ -223,7 +237,8 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
             <div className="content">
               <div className="title">
                 <p>{result.title}</p>
-                {movieIds.includes(result.id) && <TickIcon width="22" height="22" />}
+                {(watchedMovieIds.includes(result.id) ||
+                  notWatchedMovieIds.includes(result.id)) && <TickIcon width="22" height="22" />}
               </div>
               {result.description}
             </div>
