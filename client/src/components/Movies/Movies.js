@@ -27,6 +27,7 @@ function Main() {
       getAllMovies,
     },
     scrollBy: { scrollByValue, setScrollByValue },
+    pagination: { setMovieCurrentPage },
   } = useContext(GlobalContext);
 
   const [isTableView, setIsTableView] = useState();
@@ -70,7 +71,7 @@ function Main() {
     scrollTimer = setTimeout(() => {
       console.log("scroll run");
       setInitiateScroll(false);
-    }, 6000);
+    }, 5000);
   };
 
   const debouncedScroll = useCallback(debounce(initiateAnimateOnScroll, 600), []);
@@ -105,6 +106,11 @@ function Main() {
     setSourceList(data);
   };
 
+  const handleMovieStatus = () => {
+    setMovieCurrentPage(1);
+    setDisplayWatched((prev) => !prev);
+  };
+
   if (isTableView === undefined) return <div>Loading...</div>;
 
   return (
@@ -116,9 +122,9 @@ function Main() {
 
         <div>
           {displayWatched ? (
-            <WatchedIcon onClick={() => setDisplayWatched((prev) => !prev)} />
+            <WatchedIcon onClick={handleMovieStatus} />
           ) : (
-            <NotWatchedIcon onClick={() => setDisplayWatched((prev) => !prev)} />
+            <NotWatchedIcon onClick={handleMovieStatus} />
           )}
         </div>
 
