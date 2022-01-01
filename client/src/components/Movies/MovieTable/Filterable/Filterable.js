@@ -15,40 +15,38 @@ function Filterable({ headerLabel, filterableFields, handleFilterableFields, fil
 
   return (
     <div className="head-with-filter" ref={wrapperRef}>
-      <p>{headerLabel}</p>
-      <div className="filter-wrap">
-        <FilterIcon
-          onClick={() => setShowSourceFilter((prev) => !prev)}
-          fill={filterableFields.length ? "#00ffe7" : "white"}
-        />
-        {showSourceFilter && (
-          <div className="filter-options">
-            <div className="reset" onClick={() => handleFilterableFields([])}>
-              reset
-            </div>
-            {filterOptions.map(({ name, _id: id }) => (
-              <div className="control" key={id}>
-                <input
-                  type="checkbox"
-                  name={name}
-                  id={name}
-                  value={name}
-                  checked={filterableFields.includes(name)}
-                  onChange={() => {
-                    let temp = [...filterableFields];
-                    if (!temp.includes(name)) {
-                      temp.push(name);
-                    } else temp.splice(temp.indexOf(name), 1);
+      <div className="filter-wrap" onClick={() => setShowSourceFilter((prev) => !prev)}>
+        <p>{headerLabel}</p>
 
-                    handleFilterableFields(temp);
-                  }}
-                />
-                <label htmlFor={name}>{name}</label>
-              </div>
-            ))}
-          </div>
-        )}
+        <FilterIcon fill={filterableFields.length ? "#00ffe7" : "white"} />
       </div>
+      {showSourceFilter && (
+        <div className="filter-options">
+          <div className="reset" onClick={() => handleFilterableFields([])}>
+            reset
+          </div>
+          {filterOptions.map(({ name, _id: id }) => (
+            <div className="control" key={id}>
+              <input
+                type="checkbox"
+                name={name}
+                id={name}
+                value={name}
+                checked={filterableFields.includes(name)}
+                onChange={() => {
+                  let temp = [...filterableFields];
+                  if (!temp.includes(name)) {
+                    temp.push(name);
+                  } else temp.splice(temp.indexOf(name), 1);
+
+                  handleFilterableFields(temp);
+                }}
+              />
+              <label htmlFor={name}>{name}</label>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

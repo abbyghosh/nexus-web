@@ -7,8 +7,6 @@ import MovieCard from "./MovieCard/MovieCard";
 import MovieTable from "./MovieTable/MovieTable";
 
 import { ReactComponent as TableIcon } from "../../assets/icons/table.svg";
-import { ReactComponent as WatchedIcon } from "../../assets/icons/watched.svg";
-import { ReactComponent as NotWatchedIcon } from "../../assets/icons/not-watched.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as GoToTopIcon } from "../../assets/icons/circle-arrow-top.svg";
 
@@ -106,34 +104,42 @@ function Main() {
     setSourceList(data);
   };
 
-  const handleMovieStatus = () => {
-    setMovieCurrentPage(1);
-    setDisplayWatched((prev) => !prev);
-  };
-
   if (isTableView === undefined) return <div>Loading...</div>;
 
   return (
     <main className="movies-container" ref={addOffsetRef} onScroll={debouncedScroll}>
-      <div id="scroll-here">
-        <div onClick={getAllMovies}>
-          <RefreshIcon width="20" />
+      <div className="movie-view-tool" id="scroll-here">
+        <div className="status-tab">
+          <div
+            className={!displayWatched ? "active" : ""}
+            onClick={() => {
+              setMovieCurrentPage(1);
+              setDisplayWatched(false);
+            }}
+          >
+            Not Watched
+          </div>
+          <div
+            className={displayWatched ? "active" : ""}
+            onClick={() => {
+              setMovieCurrentPage(1);
+              setDisplayWatched(true);
+            }}
+          >
+            Watched
+          </div>
         </div>
-
         <div>
-          {displayWatched ? (
-            <WatchedIcon onClick={handleMovieStatus} />
-          ) : (
-            <NotWatchedIcon onClick={handleMovieStatus} />
-          )}
-        </div>
-
-        <div
-          className={isTableView ? null : "no-table-view"}
-          onClick={() => setIsTableView((prev) => !prev)}
-          style={{ color: isTableView ? "#9b9b9b" : "#666666" }}
-        >
-          <TableIcon width="20" />
+          <div onClick={getAllMovies}>
+            <RefreshIcon width="20" />
+          </div>
+          <div
+            className={isTableView ? null : "no-table-view"}
+            onClick={() => setIsTableView((prev) => !prev)}
+            style={{ color: isTableView ? "#9b9b9b" : "#666666" }}
+          >
+            <TableIcon width="20" />
+          </div>
         </div>
       </div>
 

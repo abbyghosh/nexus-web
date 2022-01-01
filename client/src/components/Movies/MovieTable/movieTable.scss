@@ -55,15 +55,8 @@
   }
 }
 
-.filtering-options {
-  .head-with-icon,
-  .head-with-filter {
-    flex-direction: row-reverse;
-    gap: 8px;
-  }
-}
-
 .head-with-icon {
+  cursor: pointer;
   @include flexbox(center, center, 20px);
 
   .sort-grouped {
@@ -76,44 +69,54 @@
 }
 
 .head-with-filter {
-  @include flexbox(center, center, 20px);
+  position: relative;
+  cursor: pointer;
+
   .filter-wrap {
-    position: relative;
+    @include flexbox(center, center, 20px);
+  }
 
-    .filter-options {
-      position: absolute;
-      top: 20px;
-      right: 50%;
-      transform: translateX(50%);
-      /* right: 0px; */
-      background-color: var(--black-700);
-      padding: 6px 10px;
-      width: max-content;
-      z-index: 1;
+  .filter-options {
+    position: absolute;
+    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    /* right: 0px; */
+    background-color: var(--black-700);
+    padding: 6px 10px;
+    width: max-content;
+    z-index: 1;
 
-      .control {
-        @include flexbox(null, center, 8px);
-        margin-bottom: 6px;
+    .control {
+      @include flexbox(null, center, 8px);
+      margin-bottom: 6px;
 
-        &:last-child {
-          margin-bottom: 0px;
-        }
-
-        input[type="checkbox"] {
-          padding: 0;
-          margin: 0;
-        }
+      &:last-child {
+        margin-bottom: 0px;
       }
-      .reset {
-        text-align: right;
-        font-size: 14px;
-        font-weight: normal;
-        color: var(--black-200);
-        cursor: pointer;
-        border-bottom: 1px solid var(--black-600);
-        padding-bottom: 4px;
-        margin-bottom: 4px;
+
+      input[type="checkbox"] {
+        padding: 0;
+        margin: 0;
       }
     }
+    .reset {
+      text-align: right;
+      font-size: 14px;
+      font-weight: normal;
+      color: var(--black-200);
+      cursor: pointer;
+      border-bottom: 1px solid var(--black-600);
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.filtering-options {
+  .head-with-icon,
+  .filter-wrap {
+    flex-direction: row-reverse;
+    gap: 8px;
   }
 }

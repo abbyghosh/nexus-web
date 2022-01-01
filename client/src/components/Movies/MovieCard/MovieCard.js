@@ -60,7 +60,10 @@ function MovieCard({
       </div>
 
       <div className={`movie-card-wrapper${displayWatched ? " watched-movie" : ""}`}>
-        {movies?.slice((movieCurrentPage - 1) * itemPerPage, movieCurrentPage * itemPerPage).map(
+        {(sourceFilter.length
+          ? movies
+          : movies?.slice((movieCurrentPage - 1) * itemPerPage, movieCurrentPage * itemPerPage)
+        ).map(
           (
             {
               _id: id,

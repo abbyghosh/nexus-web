@@ -50,9 +50,36 @@ main.movies-container {
     }
   }
 
-  > div:first-child {
-    @include flexbox(flex-end, center, 20px);
-    margin-bottom: 10px;
+  .movie-view-tool {
+    margin-bottom: 20px;
+    @include flexbox(space-between, center, 20px);
+
+    .status-tab {
+      @include flexbox;
+      border: 2px solid var(--black-400);
+      border-radius: 4px;
+      padding: 2px;
+
+      > div {
+        padding: 8px 20px;
+        background-color: var(--black-800);
+        border-radius: 4px;
+
+        &.active {
+          background-color: var(--black-400);
+          color: var(--snow-white);
+          font-weight: 700;
+        }
+
+        &:not(.active) {
+          cursor: pointer;
+        }
+      }
+    }
+
+    > div:nth-child(2) {
+      @include flexbox(null, center, 20px);
+    }
   }
 
   svg {
