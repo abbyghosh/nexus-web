@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 import "./confirmationDialog.scss";
@@ -6,16 +6,24 @@ import "./confirmationDialog.scss";
 const modalRoot = document.getElementById("modal-root");
 
 function ConfirmationDialog({ isOpen, closeModal, handleAccept, handleDeny, body }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      dialogRef.current.focus();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="modal">
-      <div className="modal-container">
-        <div className="modal-header">Confirmation</div>
-        <div className="modal-body">
+    <div className="confirmation" ref={dialogRef} tabIndex={0}>
+      <div className="confirmation-container">
+        <div className="confirmation-header">Confirmation</div>
+        <div className="confirmation-body">
           <p>{body}</p>
         </div>
-        <div className="modal-footer">
+        <div className="confirmation-footer">
           <button
             onClick={() => {
               handleAccept();

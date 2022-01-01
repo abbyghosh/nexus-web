@@ -35,12 +35,14 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
   return (
     <div className="actions">
       <div style={{ position: "relative", display: "flex" }}>
-        <EditIcon
-          onClick={() => {
-            setId(id);
-            updateBody();
-          }}
-        />
+        <button className="button-svg">
+          <EditIcon
+            onClick={() => {
+              setId(id);
+              updateBody();
+            }}
+          />
+        </button>
         {isCurrentId && (
           <div className="edit-options">
             <UpdateIcon onClick={() => updateMovie(id)} />
@@ -48,8 +50,14 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
           </div>
         )}
       </div>
-      <DeleteIcon onClick={() => setEditModalOpen(true)} />
-      {!watched && <SeenIcon onClick={() => setSeenModalOpen(true)} />}
+      <button className="button-svg">
+        <DeleteIcon className="remove-highlight" onClick={() => setEditModalOpen(true)} />
+      </button>
+      {!watched && (
+        <button className="button-svg">
+          <SeenIcon className="remove-highlight" onClick={() => setSeenModalOpen(true)} />
+        </button>
+      )}
 
       <ConfirmationDialog
         isOpen={seenModalOpen}

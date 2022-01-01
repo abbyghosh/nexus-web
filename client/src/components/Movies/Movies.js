@@ -9,6 +9,7 @@ import MovieTable from "./MovieTable/MovieTable";
 import { ReactComponent as TableIcon } from "../../assets/icons/table.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as GoToTopIcon } from "../../assets/icons/circle-arrow-top.svg";
+import { ReactComponent as LoadingIcon } from "../../assets/icons/loading.svg";
 
 import { debounce, scrollToMovieCardPixel } from "../../utils";
 import { BASE_URL, ORDER_BY } from "../../utils/constants";
@@ -109,6 +110,7 @@ function Main() {
   return (
     <main className="movies-container" ref={addOffsetRef} onScroll={debouncedScroll}>
       <div className="movie-view-tool" id="scroll-here">
+        {/* Tabs */}
         <div className="status-tab">
           <div
             className={!displayWatched ? "active" : ""}
@@ -129,6 +131,7 @@ function Main() {
             Watched
           </div>
         </div>
+        {/* Refresh and table icon */}
         <div>
           <div onClick={getAllMovies}>
             <RefreshIcon width="20" />
@@ -143,48 +146,56 @@ function Main() {
         </div>
       </div>
 
-      <div className="main-inner-wrapper">
-        {isTableView ? (
-          <MovieTable
-            movies={sortedMovies}
-            sourceList={sourceList}
-            displayWatched={displayWatched}
-            getAllMovies={getAllMovies}
-            setSortBy={setSortBy}
-            sortBy={sortBy}
-            editId={editId}
-            setEditId={setEditId}
-            updateBody={updateBody}
-            setUpdateBody={setUpdateBody}
-            updateMovie={updateMovie}
-          />
-        ) : (
-          <MovieCard
-            movies={sortedMovies}
-            sourceList={sourceList}
-            displayWatched={displayWatched}
-            getAllMovies={getAllMovies}
-            isTableView={isTableView}
-            setSortBy={setSortBy}
-            sortBy={sortBy}
-            editId={editId}
-            setEditId={setEditId}
-            updateBody={updateBody}
-            setUpdateBody={setUpdateBody}
-            updateMovie={updateMovie}
-          />
-        )}
-      </div>
-      <div
-        className={`goToTop${initiateScroll ? " goToTop-animate" : ""}`}
-        onClick={() => {
-          //scrollToMovieCardPixel(sortedMovies[(movieCurrentPage - 1) * itemPerPage + 1].imDbId)
-          let topPx = scrollToMovieCardPixel("scroll-here");
-          setScrollByValue(topPx);
-        }}
-      >
-        <GoToTopIcon />
-      </div>
+      {loading ? (
+        <div className="movie-loading">
+          <LoadingIcon width="70" />
+        </div>
+      ) : (
+        <>
+          <div className="main-inner-wrapper">
+            {isTableView ? (
+              <MovieTable
+                movies={sortedMovies}
+                sourceList={sourceList}
+                displayWatched={displayWatched}
+                getAllMovies={getAllMovies}
+                setSortBy={setSortBy}
+                sortBy={sortBy}
+                editId={editId}
+                setEditId={setEditId}
+                updateBody={updateBody}
+                setUpdateBody={setUpdateBody}
+                updateMovie={updateMovie}
+              />
+            ) : (
+              <MovieCard
+                movies={sortedMovies}
+                sourceList={sourceList}
+                displayWatched={displayWatched}
+                getAllMovies={getAllMovies}
+                isTableView={isTableView}
+                setSortBy={setSortBy}
+                sortBy={sortBy}
+                editId={editId}
+                setEditId={setEditId}
+                updateBody={updateBody}
+                setUpdateBody={setUpdateBody}
+                updateMovie={updateMovie}
+              />
+            )}
+          </div>
+          <div
+            className={`goToTop${initiateScroll ? " goToTop-animate" : ""}`}
+            onClick={() => {
+              //scrollToMovieCardPixel(sortedMovies[(movieCurrentPage - 1) * itemPerPage + 1].imDbId)
+              let topPx = scrollToMovieCardPixel("scroll-here");
+              setScrollByValue(topPx);
+            }}
+          >
+            <GoToTopIcon />
+          </div>
+        </>
+      )}
     </main>
   );
 }

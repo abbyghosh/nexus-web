@@ -66,3 +66,29 @@ main.movies-container {
   overflow: auto;
   box-sizing: border-box;
 }
+
+.remove-highlight {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#loading {
+  animation: spin 3s linear infinite;
+}
+
+button.button-svg {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+
+  &:focus-visible {
+    outline: 2px solid var(--snow-white);
+  }
+
+  &:disabled {
+    svg {
+      fill: var(--black-500);
+      cursor: not-allowed;
+    }
+  }
+}

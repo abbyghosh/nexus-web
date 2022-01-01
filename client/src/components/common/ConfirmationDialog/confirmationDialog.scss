@@ -1,13 +1,13 @@
 @import "../../../styles/abstract";
 
-.modal {
+.confirmation {
   position: fixed;
   z-index: 10;
   inset: 0;
-  background-color: hsla(0, 0%, 40%, 0.05);
+  background-color: hsla(0, 0%, 50%, 0.6);
   @include flexbox(center, center);
 
-  .modal-container {
+  .confirmation-container {
     min-width: 300px;
     max-width: 600px;
     background-color: var(--black-600);
@@ -19,7 +19,7 @@
 
     $inline-padding: 20px;
 
-    .modal-body {
+    .confirmation-body {
       padding: 10px $inline-padding;
       max-height: 70vh;
       overflow: auto;
@@ -29,14 +29,14 @@
       }
     }
 
-    .modal-header {
+    .confirmation-header {
       padding: 6px $inline-padding;
       font-size: 18px;
       font-weight: 600;
       border-bottom: 1px solid var(--black-400);
     }
 
-    .modal-footer {
+    .confirmation-footer {
       padding-top: 10px;
       padding: 10px $inline-padding;
       @include flexbox(flex-end, center, 20px);
@@ -45,7 +45,27 @@
         background-color: var(--black-600);
         color: var(--snow-white);
         border: 2px solid var(--black-400);
+        border-radius: 4px;
         padding: 8px 26px;
+        cursor: pointer;
+        font-weight: 700;
+
+        &:hover {
+          color: var(--black-600);
+          background-color: var(--snow-white);
+          border: 2px solid var(--snow-white);
+        }
+
+        &:active {
+          color: var(--snow-white);
+          background-color: var(--black-400);
+          border: 2px solid var(--black-400);
+          -webkit-tap-highlight-color: var(--black-400);
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--snow-white);
+        }
       }
     }
   }
