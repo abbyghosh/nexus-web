@@ -2,16 +2,17 @@ import React from "react";
 
 import { ReactComponent as SortIcon } from "../../../../assets/icons/sort-up.svg";
 
-function Sortable({ handleSortBy, headerLabel, field, sortedName, sortedOrder }) {
+function Sortable({ handleSortBy, headerLabel, field, sortedName, sortedOrder, resetPagination }) {
   return (
     <div
       className="head-with-icon"
-      onClick={() =>
+      onClick={() => {
+        resetPagination();
         handleSortBy({
           name: field,
           order: sortedName === field ? (sortedOrder < 2 ? sortedOrder + 1 : 0) : 1,
-        })
-      }
+        });
+      }}
     >
       <p>{headerLabel}</p>
       <div className="sort-grouped">

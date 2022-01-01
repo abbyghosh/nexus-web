@@ -70,20 +70,6 @@
         }
       }
     }
-
-    .extra-wrapper {
-      position: relative;
-      .movie-detail-close {
-        position: absolute;
-        top: 0;
-        height: 0;
-        overflow: auto;
-      }
-      .movie-detail-open {
-        position: absolute;
-        height: auto;
-      }
-    }
   }
 
   &.watched-movie {

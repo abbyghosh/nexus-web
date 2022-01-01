@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalState";
 import { itemPerPage } from "../../../utils/constants";
 
@@ -30,6 +30,11 @@ function MovieCard({
   } = useContext(GlobalContext);
 
   const [sourceFilter, setSourceFilter] = useState([]);
+  const [sourceFilteredMovies, setSourceFilteredMovies] = useState([]);
+
+  useEffect(() => {
+    setSourceFilteredMovies((prev) => movies.filter((ele) => sourceFilter.includes(ele.source)));
+  }, [sourceFilter]);
 
   return (
     <>
@@ -41,17 +46,19 @@ function MovieCard({
             field="imDb"
             sortedName={sortBy.name}
             sortedOrder={sortBy.order}
+            resetPagination={() => setMovieCurrentPage(1)}
           />
           <Filterable
             headerLabel="Source"
             filterableFields={sourceFilter}
             handleFilterableFields={setSourceFilter}
             filterOptions={sourceList}
+            resetPagination={() => setMovieCurrentPage(1)}
           />
         </div>
         <div>
           <PaginationIndicator
-            totalCount={movies?.length}
+            totalCount={sourceFilteredMovies.length ? sourceFilteredMovies.length : movies?.length}
             itemPerPage={itemPerPage}
             currentPage={movieCurrentPage}
             setCurrentPage={setMovieCurrentPage}
@@ -60,12 +67,10 @@ function MovieCard({
       </div>
 
       <div className={`movie-card-wrapper${displayWatched ? " watched-movie" : ""}`}>
-        {(sourceFilter.length
-          ? movies
-          : movies?.slice((movieCurrentPage - 1) * itemPerPage, movieCurrentPage * itemPerPage)
-        ).map(
-          (
-            {
+        {(sourceFilteredMovies.length ? sourceFilteredMovies : movies)
+          ?.slice((movieCurrentPage - 1) * itemPerPage, movieCurrentPage * itemPerPage)
+          .map(
+            ({
               _id: id,
               imDbId,
               image,
@@ -78,10 +83,7 @@ function MovieCard({
               watchQueue,
               watched,
               rewatchScore,
-            },
-            i
-          ) =>
-            (sourceFilter.length === 0 || sourceFilter.includes(source)) && (
+            }) => (
               <section className="movie-card" key={imDbId} id={imDbId}>
                 <div className="movie-details">
                   <img src={image} alt={`${title} poster`} />
@@ -107,8 +109,6 @@ function MovieCard({
                         source || "-"
                       )}
                     </div>
-                    {/* <div className="extra-wrapper">
-                          <div className={editId === imDbId ? "movie-detail-open" : "movie-detail-close"}> */}
                     <TruncatedElement label={genres.join(", ")} className="genres" />
                     <div>Imdb: {imDb || "-"}</div>
                     {displayWatched && (
@@ -155,11 +155,11 @@ function MovieCard({
                 />
               </section>
             )
-        )}
+          )}
       </div>
 
       <PaginationIndicator
-        totalCount={movies?.length}
+        totalCount={sourceFilteredMovies.length || movies?.length}
         itemPerPage={itemPerPage}
         currentPage={movieCurrentPage}
         setCurrentPage={setMovieCurrentPage}

@@ -3,7 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as FilterIcon } from "../../../../assets/icons/filter.svg";
 import useDetectOutside from "../../../../customHooks/useDetectOutside";
 
-function Filterable({ headerLabel, filterableFields, handleFilterableFields, filterOptions }) {
+function Filterable({
+  headerLabel,
+  filterableFields,
+  handleFilterableFields,
+  filterOptions,
+  resetPagination,
+}) {
   const wrapperRef = useRef(null);
   const clickedOutside = useDetectOutside(wrapperRef);
 
@@ -34,6 +40,7 @@ function Filterable({ headerLabel, filterableFields, handleFilterableFields, fil
                 value={name}
                 checked={filterableFields.includes(name)}
                 onChange={() => {
+                  resetPagination();
                   let temp = [...filterableFields];
                   if (!temp.includes(name)) {
                     temp.push(name);

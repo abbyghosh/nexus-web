@@ -6,6 +6,7 @@ import Sortable from "./Sortable/Sortable";
 import Filterable from "./Filterable/Filterable";
 
 import "./movieTable.scss";
+import useDevice from "../../../customHooks/useDevice";
 
 function MovieTable({
   movies,
@@ -21,6 +22,7 @@ function MovieTable({
   setUpdateBody,
   updateMovie,
 }) {
+  const { isMobile } = useDevice();
   const [sourceFilter, setSourceFilter] = useState([]);
   const [movieBannerPreview, setMovieBannerPreview] = useState("");
 
@@ -28,37 +30,61 @@ function MovieTable({
     <div className="tableFixHead">
       <table className="card-table">
         <thead>
-          <tr>
-            <th width="35%">Name</th>
-            <th width="15%">
-              <Filterable
-                headerLabel="Source"
-                filterableFields={sourceFilter}
-                handleFilterableFields={setSourceFilter}
-                filterOptions={sourceList}
-              />
-            </th>
-            <th width="20%">Genre</th>
-            <th width="10%">
-              <Sortable
-                handleSortBy={setSortBy}
-                headerLabel="Rating"
-                field="imDb"
-                sortedName={sortBy.name}
-                sortedOrder={sortBy.order}
-              />
-            </th>
-            <th width="10%">
-              <Sortable
-                handleSortBy={setSortBy}
-                headerLabel={displayWatched ? "Rewatch" : "Queue"}
-                field={displayWatched ? "rewatchScore" : "watchQueue"}
-                sortedName={sortBy.name}
-                sortedOrder={sortBy.order}
-              />
-            </th>
-            <th width="10%">Actions</th>
-          </tr>
+          {isMobile && (
+            <tr>
+              <th width="35%">Name</th>
+              <th width="40%">
+                <Filterable
+                  headerLabel="Source"
+                  filterableFields={sourceFilter}
+                  handleFilterableFields={setSourceFilter}
+                  filterOptions={sourceList}
+                />
+              </th>
+              <th width="25%">
+                <Sortable
+                  handleSortBy={setSortBy}
+                  headerLabel="Rating"
+                  field="imDb"
+                  sortedName={sortBy.name}
+                  sortedOrder={sortBy.order}
+                />
+              </th>
+            </tr>
+          )}
+          {!isMobile && (
+            <tr>
+              <th width="35%">Name</th>
+              <th width="15%">
+                <Filterable
+                  headerLabel="Source"
+                  filterableFields={sourceFilter}
+                  handleFilterableFields={setSourceFilter}
+                  filterOptions={sourceList}
+                />
+              </th>
+              <th width="20%">Genre</th>
+              <th width="10%">
+                <Sortable
+                  handleSortBy={setSortBy}
+                  headerLabel="Rating"
+                  field="imDb"
+                  sortedName={sortBy.name}
+                  sortedOrder={sortBy.order}
+                />
+              </th>
+              <th width="10%">
+                <Sortable
+                  handleSortBy={setSortBy}
+                  headerLabel={displayWatched ? "Rewatch" : "Queue"}
+                  field={displayWatched ? "rewatchScore" : "watchQueue"}
+                  sortedName={sortBy.name}
+                  sortedOrder={sortBy.order}
+                />
+              </th>
+              <th width="10%">Actions</th>
+            </tr>
+          )}
         </thead>
         <tbody>
           {movies.map(
@@ -111,49 +137,55 @@ function MovieTable({
                       source || "-"
                     )}
                   </td>
-                  <td title={genres.join(", ")}>
-                    <div className="truncate">{genres.join(", ")}</div>
-                  </td>
+                  {!isMobile && (
+                    <td title={genres.join(", ")}>
+                      <div className="truncate">{genres.join(", ")}</div>
+                    </td>
+                  )}
                   <td style={{ textAlign: "center" }}>{imDb || "-"}</td>
-                  <td style={{ textAlign: "center" }}>
-                    {/* Display Rewatch */}
-                    {displayWatched && (
-                      <RatingStar
-                        id={id}
-                        editId={editId}
-                        updateBody={updateBody}
-                        rewatchScore={rewatchScore}
-                        setUpdateBody={setUpdateBody}
-                      />
-                    )}
-                    {/* Display Watched */}
-                    {!displayWatched &&
-                      (editId === id ? (
-                        <input
-                          name="watchQueue"
-                          value={updateBody.watchQueue}
-                          onChange={(e) =>
-                            setUpdateBody((prev) => ({ ...prev, watchQueue: e.target.value }))
-                          }
+                  {!isMobile && (
+                    <>
+                      <td style={{ textAlign: "center" }}>
+                        {/* Display Rewatch */}
+                        {displayWatched && (
+                          <RatingStar
+                            id={id}
+                            editId={editId}
+                            updateBody={updateBody}
+                            rewatchScore={rewatchScore}
+                            setUpdateBody={setUpdateBody}
+                          />
+                        )}
+                        {/* Display Watched */}
+                        {!displayWatched &&
+                          (editId === id ? (
+                            <input
+                              name="watchQueue"
+                              value={updateBody.watchQueue}
+                              onChange={(e) =>
+                                setUpdateBody((prev) => ({ ...prev, watchQueue: e.target.value }))
+                              }
+                            />
+                          ) : (
+                            watchQueue || "-"
+                          ))}
+                      </td>
+                      <td>
+                        <MovieAction
+                          id={id}
+                          setId={setEditId}
+                          isCurrentId={editId === id}
+                          updateBody={() => setUpdateBody({ source, watchQueue, rewatchScore })}
+                          reset={() => {
+                            setEditId(null);
+                            setUpdateBody({});
+                          }}
+                          watched={watched}
+                          updateMovie={updateMovie}
                         />
-                      ) : (
-                        watchQueue || "-"
-                      ))}
-                  </td>
-                  <td>
-                    <MovieAction
-                      id={id}
-                      setId={setEditId}
-                      isCurrentId={editId === id}
-                      updateBody={() => setUpdateBody({ source, watchQueue, rewatchScore })}
-                      reset={() => {
-                        setEditId(null);
-                        setUpdateBody({});
-                      }}
-                      watched={watched}
-                      updateMovie={updateMovie}
-                    />
-                  </td>
+                      </td>
+                    </>
+                  )}
                 </tr>
               )
           )}
