@@ -57,9 +57,19 @@ main.movies-container {
   }
 
   .movie-view-tool {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     @include flexbox(space-between, center, 20px);
+    position: relative;
 
+    &:before {
+      content: "";
+      height: 1px;
+      background-color: grey;
+      width: calc(100% + (20px + 10px));
+      position: absolute;
+      bottom: -10px;
+      left: -20px;
+    }
     .status-tab {
       @include flexbox;
       border: 2px solid var(--black-400);
