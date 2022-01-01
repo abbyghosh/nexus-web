@@ -60,7 +60,7 @@ main {
 main.movies-container {
   $padding: 20px;
   margin-top: $header-height;
-  padding-top: $padding;
+  padding-top: 10px;
   /* height: calc(100vh - (60px + #{$padding})); */
   height: calc(100vh - 60px);
   overflow: auto;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import { ReactComponent as EditIcon } from "../../../../assets/icons/edit.svg";
@@ -8,6 +8,7 @@ import { ReactComponent as UpdateIcon } from "../../../../assets/icons/save-tick
 import { ReactComponent as CloseIcon } from "../../../../assets/icons/dont-save-close.svg";
 
 import { GlobalContext } from "../../../../context/GlobalState";
+import ConfirmationDialog from "../../../common/ConfirmationDialog/ConfirmationDialog";
 
 import { BASE_URL } from "../../../../utils/constants";
 
@@ -17,6 +18,9 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
   let {
     movie: { getAllMovies },
   } = useContext(GlobalContext);
+
+  const [seenModalOpen, setSeenModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   const deleteMovie = (id) => {
     axios
@@ -44,8 +48,25 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
           </div>
         )}
       </div>
-      <DeleteIcon onClick={() => deleteMovie(id)} />
-      {!watched && <SeenIcon onClick={() => updateMovie(id, { watched: true })} />}
+      <DeleteIcon onClick={() => setEditModalOpen(true)} />
+      {!watched && <SeenIcon onClick={() => setSeenModalOpen(true)} />}
+
+      <ConfirmationDialog
+        isOpen={seenModalOpen}
+        closeModal={() => setSeenModalOpen(false)}
+        handleAccept={() => {
+          updateMovie(id, { watched: true });
+        }}
+        body={"Are you sure to mark the movie seen?"}
+      />
+      <ConfirmationDialog
+        isOpen={editModalOpen}
+        closeModal={() => setEditModalOpen(false)}
+        handleAccept={() => {
+          deleteMovie(id);
+        }}
+        body={"Are you sure to delete the movie?"}
+      />
     </div>
   );
 }
