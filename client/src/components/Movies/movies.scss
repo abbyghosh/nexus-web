@@ -1,7 +1,12 @@
 @import "../../styles/abstract";
 
 main.movies-container {
+  $padding: 20px;
+  /* height: calc(100vh - (60px + #{$padding})); */
+  height: calc(100vh - 60px);
+  overflow: auto;
   padding-right: 10px;
+  box-sizing: border-box;
 
   .movie-loading {
     height: 50vh;

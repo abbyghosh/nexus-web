@@ -26,7 +26,7 @@ function Main() {
       getAllMovies,
     },
     scrollBy: { scrollByValue, setScrollByValue },
-    pagination: { setMovieCurrentPage },
+    pagination: { movieCurrentPage, setMovieCurrentPage },
   } = useContext(GlobalContext);
 
   const [isTableView, setIsTableView] = useState();
@@ -64,6 +64,19 @@ function Main() {
     if (scrollByValue) addOffsetRef.current.scrollBy({ top: scrollByValue, behavior: "smooth" });
   }, [scrollByValue]);
 
+  //By default on Paginating the view stays where it is.
+  //If the page number changes the next page will be scrolled to the top
+  useEffect(() => {
+    setTimeout(() => {
+      let topPx = scrollToMovieCardPixel("scroll-here");
+      addOffsetRef.current.scrollBy({ top: topPx });
+    }, 0);
+  }, [movieCurrentPage]);
+
+  /**
+   * @description Animate "move to top" icon
+   * @param {Object} e Event
+   */
   const initiateAnimateOnScroll = (e) => {
     setInitiateScroll(true);
     clearTimeout(scrollTimer);

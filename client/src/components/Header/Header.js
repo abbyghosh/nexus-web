@@ -9,6 +9,8 @@ import { ReactComponent as LogoIcon } from "../../assets/images/name-logo.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as ContractIcon } from "../../assets/icons/contract.svg";
 
+import ROUTES from "../../routes.json";
+
 import "./header.scss";
 
 function Header() {
@@ -35,18 +37,13 @@ function Header() {
 
             <nav className="desktop-nav">
               <ul>
-                <li>
-                  <NavLink to="/blog">Blog</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/references">References</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/resources">Dev Resources</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/">Movies</NavLink>
-                </li>
+                {ROUTES.map(({ name, url }) => (
+                  <li>
+                    <NavLink to={url} exact={true}>
+                      {name}
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>

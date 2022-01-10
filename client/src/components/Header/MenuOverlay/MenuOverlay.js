@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ReactComponent as MenuIcon } from "../../../assets/icons/menu-mobile.svg";
+
 import useDetectOutside from "../../../customHooks/useDetectOutside";
+
+import { ReactComponent as MenuIcon } from "../../../assets/icons/menu-mobile.svg";
+
+import ROUTES from "../../../routes.json";
+
 import "./MenuOverlay.scss";
 
 function MenuOverlay() {
@@ -20,18 +25,13 @@ function MenuOverlay() {
       {isMenuOpen && (
         <nav>
           <ul>
-            <li>
-              <NavLink to="/blog">Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to="/references">References</NavLink>
-            </li>
-            <li>
-              <NavLink to="/resources">Dev Resources</NavLink>
-            </li>
-            <li>
-              <NavLink to="/">Movies</NavLink>
-            </li>
+            {ROUTES.map(({ name, url }) => (
+              <li>
+                <NavLink to={url} exact={true}>
+                  {name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       )}

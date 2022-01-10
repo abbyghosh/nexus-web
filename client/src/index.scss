@@ -49,22 +49,18 @@ main {
   max-width: $max-width;
   margin: 0 auto;
 
-  @include tablet {
+  @include tablet-l {
     padding-inline: 30px;
   }
+
   @include mobile {
     padding-inline: 20px;
   }
 }
 
-main.movies-container {
-  $padding: 20px;
+main {
   margin-top: $header-height;
   padding-top: 10px;
-  /* height: calc(100vh - (60px + #{$padding})); */
-  height: calc(100vh - 60px);
-  overflow: auto;
-  box-sizing: border-box;
 }
 
 .remove-highlight {
@@ -73,6 +69,15 @@ main.movies-container {
 
 #loading {
   animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
 
 button.button-svg {
