@@ -7,21 +7,23 @@
     position: absolute;
     z-index: 4;
     left: 0px;
-    top: 40px;
+    top: 44px;
 
     padding: 14px;
     background: #464545;
     display: flex;
     width: calc(100vw - 40px);
     box-sizing: border-box;
+    /* box-shadow: 0px 6px 8px 0px #383838; */
+    box-shadow: 0px 6px 8px 0px var(--black-700);
 
     &:before {
       content: "";
       position: absolute;
-      left: 14px;
+      left: 12px;
       width: 0;
       height: 0;
-      $width: 12px;
+      $width: 14px;
       top: calc(-#{$width} + 1px);
       border-left: $width solid transparent;
       border-right: $width solid transparent;

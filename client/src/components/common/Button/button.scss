@@ -16,6 +16,11 @@ button.btn {
     margin-left: auto;
   }
 
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
   &.btn-default {
     background-color: var(--black-400);
     color: var(--snow-white);
@@ -30,5 +35,9 @@ button.btn {
     border-color: var(--snow-white);
     background-color: transparent;
     color: var(--snow-white);
+
+    &:active {
+      border-color: var(--black-600);
+    }
   }
 }

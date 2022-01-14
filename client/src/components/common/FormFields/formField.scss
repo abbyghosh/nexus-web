@@ -25,6 +25,20 @@
 
   > div {
     flex-grow: 1;
+    position: relative;
+
+    > label {
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      > svg {
+        width: 28px;
+        color: var(--black-400);
+      }
+      + input {
+        padding-left: 46px;
+      }
+    }
   }
 
   input,

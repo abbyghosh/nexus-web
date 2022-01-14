@@ -4,7 +4,19 @@ import ErrorMsg from "./ErrorMsg";
 
 import "./formField.scss";
 
-function Input({ type, label, name, id, value, onChange, required, error, placeholder, ...props }) {
+function Input({
+  type,
+  label,
+  name,
+  id,
+  value,
+  onChange,
+  required,
+  error,
+  placeholder,
+  icon: Icon,
+  ...props
+}) {
   const [visited, setVisited] = useState(false);
 
   return (
@@ -17,10 +29,15 @@ function Input({ type, label, name, id, value, onChange, required, error, placeh
       )}
 
       <div>
+        {Icon && (
+          <label htmlFor={name}>
+            <Icon />
+          </label>
+        )}
         <input
           type={type}
           name={name}
-          id={id}
+          id={name}
           value={value}
           onChange={onChange}
           onBlur={() => {

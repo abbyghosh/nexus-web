@@ -9,7 +9,8 @@ const handleNewUser = async (req, res) => {
 
   // check for duplicate usernames in the db
   const userPresent = await User.find({ email });
-  if (userPresent.length) return res.sendStatus(409); //Conflict
+  if (userPresent.length)
+    return res.status(409).json({ status: "error", message: "Email/User already exists." }); //Conflict
 
   try {
     //encrypt the password
@@ -37,7 +38,8 @@ const handleLogin = async (req, res) => {
 
   const [userPresent] = await User.find({ email });
   console.log(userPresent);
-  if (!userPresent) return res.sendStatus(401); //Unauthorized
+  if (!userPresent)
+    return res.status(401).json({ status: "error", message: "Email/Password does not match." }); //Unauthorized
 
   // evaluate password
   const match = await bcrypt.compare(password, userPresent.password);
@@ -45,7 +47,7 @@ const handleLogin = async (req, res) => {
     // create JWTs
     res.json({ message: `User is validated!`, result: userPresent });
   } else {
-    res.sendStatus(401);
+    res.status(401).json({ status: "error", message: "Email/Password does not match." });
   }
 };
 
