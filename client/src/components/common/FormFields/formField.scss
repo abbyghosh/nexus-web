@@ -3,6 +3,10 @@
 .form-group {
   display: flex;
 
+  &:not(:nth-last-child(2)) {
+    margin-bottom: 10px;
+  }
+
   label {
     flex-basis: 130px;
     flex-shrink: 0;
@@ -25,11 +29,11 @@
 
   input,
   textarea {
-    padding: 5px 8px;
-    font-size: 14px;
-    border: 2px solid var(--black-400);
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid var(--black-300);
     width: 100%;
-    border-radius: 2px;
+    border-radius: 4px;
     box-sizing: border-box;
 
     &:hover {

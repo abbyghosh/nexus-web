@@ -1,11 +1,20 @@
 import React from "react";
 
 import "./button.scss";
-
-function Button({ children, leftIcon: LeftIcon, rightIcon: RightIcon, ...props }) {
-  console.log("Check", React.isValidElement(RightIcon));
+/**
+ *
+ * @param {String} variant [default, light, outline]
+ * @returns
+ */
+function Button({
+  children,
+  leftIcon: LeftIcon,
+  rightIcon: RightIcon,
+  variant = "default",
+  ...props
+}) {
   return (
-    <button className="btn" {...props}>
+    <button className={`btn btn-${variant}`} {...props}>
       {React.isValidElement(LeftIcon) ? LeftIcon : LeftIcon && <LeftIcon />}
       {children}
       {React.isValidElement(RightIcon) ? RightIcon : RightIcon && <RightIcon />}

@@ -34,11 +34,10 @@ function Account({
   return (
     <>
       <div className="account">
-        {/* <div className="button">Login as Guest</div> */}
         {Object.keys(userDetails).length ? (
           <section className="user-detail">
             <div className="user-detail__body">
-              <p className="user-detail__name">{userDetails.name}</p>
+              <p className="user-detail__name signedin">{userDetails.name}</p>
               <p className="user-detail__email">{userDetails.email}</p>
             </div>
 
@@ -46,6 +45,7 @@ function Account({
               <p>Change Password</p>
               <Button
                 rightIcon={<LogoutIcon width="20" />}
+                variant="light"
                 onClick={() => {
                   setUserDetails({});
                   localStorage.removeItem("user");
@@ -57,13 +57,14 @@ function Account({
           </section>
         ) : (
           <div className="authentication">
-            <div className="button" onClick={() => setIsLoginModalOpen(true)}>
+            <div className="signedin">Signed in as Guest</div>
+            <Button variant="outline" onClick={() => setIsLoginModalOpen(true)}>
               Login
-            </div>
+            </Button>
             <span className="or">OR</span>
-            <div className="button" onClick={() => setIsRegisterModalOpen(true)}>
+            <Button variant="light" onClick={() => setIsRegisterModalOpen(true)}>
               Register
-            </div>
+            </Button>
           </div>
         )}
       </div>

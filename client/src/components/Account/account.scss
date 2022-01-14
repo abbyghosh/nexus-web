@@ -1,8 +1,16 @@
 @import "../../styles/abstract";
 
 .account {
+  .signedin {
+    color: #c2c2c2;
+    background: var(--black-800);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
   .user-detail {
-    @include flexbox(space-between, center, null, column);
+    @include flexbox(space-between, center, 40px, column);
     height: 100%;
 
     &__body {
@@ -10,18 +18,16 @@
     }
 
     &__name {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 16px;
     }
 
     &__email {
       font-weight: 500;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     &__footer {
       width: 100%;
-      margin-top: 40px;
 
       > p {
         padding: 6px 0;
@@ -34,20 +40,34 @@
       }
     }
   }
+
   .authentication {
     @include flexbox(null, center, 10px, column);
   }
-  .button {
-    display: inline-block;
-    background-color: var(--black-400);
-    font-size: 16px;
-    font-weight: 700;
-    padding: 8px 18px;
-    border-radius: 6px;
-  }
 
   .or {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
+    position: relative;
+    width: 100%;
+    text-align: center;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: calc(50% - 20px);
+      height: 2px;
+      background-color: var(--black-500);
+      top: 10px;
+    }
+
+    &:before {
+      left: 0;
+    }
+
+    &:after {
+      right: 0;
+    }
   }
 }
