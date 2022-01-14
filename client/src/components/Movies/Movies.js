@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState, useCallback } from "react";
-import axios from "axios";
 
+import axiosConfig from "../../axiosConfig";
 import { GlobalContext } from "../../context/GlobalState";
 import useDevice from "../../customHooks/useDevice";
 import MovieCard from "./MovieCard/MovieCard";
@@ -12,11 +12,11 @@ import { ReactComponent as GoToTopIcon } from "../../assets/icons/circle-arrow-t
 import { ReactComponent as LoadingIcon } from "../../assets/icons/loading.svg";
 
 import { debounce, scrollToMovieCardPixel } from "../../utils";
-import { BASE_URL, ORDER_BY } from "../../utils/constants";
+import { ORDER_BY } from "../../utils/constants";
 
 import "./movies.scss";
 
-function Main() {
+function Movies() {
   const { isMobile } = useDevice();
   const addOffsetRef = useRef(null);
 
@@ -69,7 +69,9 @@ function Main() {
   useEffect(() => {
     setTimeout(() => {
       let topPx = scrollToMovieCardPixel("scroll-here");
-      addOffsetRef.current.scrollBy({ top: topPx });
+      if (topPx) {
+        addOffsetRef.current.scrollBy({ top: topPx });
+      }
     }, 0);
   }, [movieCurrentPage]);
 
@@ -101,8 +103,8 @@ function Main() {
   };
 
   const updateMovie = (id, body) => {
-    axios
-      .patch(`${BASE_URL}/movies/${id}`, body || updateBody)
+    axiosConfig
+      .patch(`/movies/${id}`, body || updateBody)
       .then((res) => {
         console.log(res);
         setEditId(null);
@@ -114,7 +116,7 @@ function Main() {
   const getAllSources = async () => {
     let {
       data: { data },
-    } = await axios.get(`${BASE_URL}/sources`);
+    } = await axiosConfig.get(`/sources`);
     setSourceList(data);
   };
 
@@ -200,7 +202,7 @@ function Main() {
           <div
             className={`goToTop${initiateScroll ? " goToTop-animate" : ""}`}
             onClick={() => {
-              //scrollToMovieCardPixel(sortedMovies[(movieCurrentPage - 1) * itemPerPage + 1].imDbId)
+              //scrollToMovieCardPixel(sortedMovies[(movieCurrentPage - 1) * itemPerPage + 1].imDbId) //Getting the top movie of that paginated element
               let topPx = scrollToMovieCardPixel("scroll-here");
               setScrollByValue(topPx);
             }}
@@ -213,4 +215,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Movies;

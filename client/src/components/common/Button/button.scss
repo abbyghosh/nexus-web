@@ -1,0 +1,17 @@
+@import "../../../styles/abstract";
+
+button.btn {
+  border: none;
+  background-color: var(--black-400);
+  color: var(--snow-white);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 600;
+
+  @include flexbox(null, center, 10px);
+
+  &[type="submit"] {
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+}

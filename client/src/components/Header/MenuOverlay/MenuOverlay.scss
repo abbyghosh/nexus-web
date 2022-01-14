@@ -2,12 +2,17 @@
 
 .mobile-menu {
   position: relative;
-  nav {
+
+  .menu-overlay {
     position: absolute;
     z-index: 4;
     left: 0px;
     top: 40px;
-    width: 130px;
+
+    padding: 10px;
+    background: #464545;
+    display: flex;
+    width: calc(100vw - 60px);
 
     &:before {
       content: "";
@@ -23,48 +28,60 @@
       border-bottom: $width solid #464545;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      background: #464545;
-      padding: 10px;
-      margin: 0;
-      border-radius: 4px;
+    $spacing: 10px;
 
-      li {
-        font-weight: 600;
-        margin-bottom: 10px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-      a {
-        position: relative;
-        text-decoration: none;
-        color: white;
-        width: 100%;
-        font-size: 16px;
-        display: inline-block;
-        padding: 2px 0;
+    nav {
+      flex-basis: 42%;
+      padding-right: $spacing;
+      border-right: 2px solid var(--black-400);
 
-        &.active,
-        &:hover {
-          color: #00ffe7;
-          &:before {
-            content: "";
-            position: absolute;
-            left: -6px;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background-color: currentColor;
-          }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 4px;
 
-          &.active {
-            margin-left: 6px;
+        li {
+          font-weight: 600;
+          margin-bottom: 10px;
+          &:last-child {
+            margin-bottom: 0;
           }
         }
+
+        a {
+          position: relative;
+          text-decoration: none;
+          color: var(--snow-white);
+          width: 100%;
+          font-size: 16px;
+          display: inline-block;
+          padding: 2px 0;
+
+          &.active,
+          &:hover {
+            color: var(--green-200);
+            &:before {
+              content: "";
+              position: absolute;
+              left: -6px;
+              top: 0;
+              height: 100%;
+              width: 2px;
+              background-color: currentColor;
+            }
+
+            &.active {
+              margin-left: 6px;
+            }
+          }
+        }
       }
+    }
+
+    .account {
+      flex-basis: 58%;
+      padding-left: $spacing;
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
 import axios from "axios";
 
+import axiosConfig from "../../../axiosConfig";
 import useDetectOutside from "../../../customHooks/useDetectOutside";
 
 import { ReactComponent as SearchIcon } from "../../../assets/icons/search.svg";
@@ -8,7 +9,7 @@ import { ReactComponent as RubberIcon } from "../../../assets/icons/rubber.svg";
 import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg";
 import { ReactComponent as TickIcon } from "../../../assets/icons/tick.svg";
 
-import { BASE_URL, IMDB_API_KEY } from "../../../utils/constants";
+import { IMDB_API_KEY } from "../../../utils/constants";
 import { debounce, scrollToMovieCardPixel } from "../../../utils";
 import { GlobalContext } from "../../../context/GlobalState";
 
@@ -27,7 +28,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
 
   const wrapperRef = useRef(null);
   const controller = useRef(null);
-  const clickedOutside = useDetectOutside(wrapperRef);
+  const [clickedOutside] = useDetectOutside(wrapperRef);
 
   const [typedMovie, setTypedMovie] = useState("");
   const [searchedResults, setSearchedResults] = useState([]);
@@ -141,7 +142,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
     };
 
     try {
-      await axios.post(`${BASE_URL}/movies`, movieBody);
+      await axiosConfig("/movies", movieBody);
       getAllMovies();
       addMoviePosition(movieBody.imDbId);
     } catch (err) {

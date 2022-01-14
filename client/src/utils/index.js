@@ -20,7 +20,9 @@ export const debounce = (fn, time) => {
 
 export const scrollToMovieCardPixel = (id) => {
   let ele = document.getElementById(id);
-  let eleSizes = ele.getBoundingClientRect();
-  let vhInPixel = window.innerHeight;
-  return eleSizes.top - (vhInPixel - (eleSizes.height + 10));
+  if (ele) {
+    let eleSizes = ele.getBoundingClientRect();
+    let vhInPixel = window.innerHeight;
+    return eleSizes.top - (vhInPixel - (eleSizes.height + 10));
+  }
 };

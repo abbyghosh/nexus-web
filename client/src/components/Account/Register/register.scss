@@ -1,0 +1,11 @@
+@import "../../../styles/abstract";
+
+.register-form {
+  .form-group:not(:nth-last-child(2)) {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
-const reqString = {
-  type: String,
-  required: true,
-};
+const { reqString } = require("../utils/constants");
 
 const movieSchema = new mongoose.Schema(
   {

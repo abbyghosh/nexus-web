@@ -1,0 +1,35 @@
+@import "../../../../styles/abstract";
+
+.confirmation-footer {
+  $inline-padding: 20px;
+  padding-top: 10px;
+  padding: 10px $inline-padding;
+  @include flexbox(flex-end, center, 20px);
+
+  button {
+    background-color: var(--black-600);
+    color: var(--snow-white);
+    border: 2px solid var(--black-400);
+    border-radius: 4px;
+    padding: 8px 26px;
+    cursor: pointer;
+    font-weight: 700;
+
+    &:hover {
+      color: var(--black-600);
+      background-color: var(--snow-white);
+      border: 2px solid var(--snow-white);
+    }
+
+    &:active {
+      color: var(--snow-white);
+      background-color: var(--black-400);
+      border: 2px solid var(--black-400);
+      -webkit-tap-highlight-color: var(--black-400);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--snow-white);
+    }
+  }
+}

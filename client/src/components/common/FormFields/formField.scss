@@ -1,0 +1,60 @@
+@import "../../../styles/abstract";
+
+.form-group {
+  display: flex;
+
+  label {
+    flex-basis: 130px;
+    flex-shrink: 0;
+    text-align: left;
+    font-size: 16px;
+
+    @include mobile {
+      flex-basis: 150px;
+    }
+
+    span {
+      color: #f80303;
+      font-size: 20px;
+    }
+  }
+
+  > div {
+    flex-grow: 1;
+  }
+
+  input,
+  textarea {
+    padding: 5px 8px;
+    font-size: 14px;
+    border: 2px solid var(--black-400);
+    width: 100%;
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: var(--black-200);
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--green-200);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  .form-error {
+    background-color: var(--black-400);
+    color: var(--red-100);
+    display: block;
+
+    margin-top: 4px;
+    padding: 4px 12px;
+    border-radius: 1px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}

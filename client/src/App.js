@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import { GlobalContext } from "./context/GlobalState";
 
+import ProtectedRoute from "./ProtectedRoute";
 import Header from "./components/Header/Header";
 import Toast from "./components/Movies/common/Toast/Toast";
 import Movies from "./components/Movies/Movies";
@@ -13,6 +14,8 @@ import NotFound from "./components/NotFound";
 import ROUTES from "./routes.json";
 
 function App() {
+  let { MOVIES, RESUME, BLOG } = ROUTES;
+
   let {
     toast: {
       toastState: { isActive },
@@ -32,9 +35,9 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route path={ROUTES[2].url} component={Blog} />
-        <Route path={ROUTES[1].url} component={Resume} />
-        <Route path={ROUTES[0].url} exact component={Movies} />
+        <ProtectedRoute path={BLOG.url} component={Blog} />
+        <ProtectedRoute path={RESUME.url} component={Resume} />
+        <Route path={MOVIES.url} exact component={Movies} />
         <Route component={NotFound} />
       </Switch>
 

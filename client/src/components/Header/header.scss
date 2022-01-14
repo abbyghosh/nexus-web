@@ -27,11 +27,11 @@ header {
         text-decoration: none;
         padding: 7px 10px;
         font-size: 16px;
-        color: white;
+        color: var(--snow-white);
 
         &.active,
         &:hover {
-          color: #00ffe7;
+          color: var(--green-200);
           &:before,
           &:after {
             content: "";

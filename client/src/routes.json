@@ -1,17 +1,19 @@
-[
-  {
+{
+  "MOVIES": {
     "name": "Movies",
     "url": "/",
-    "subRoute": []
+    "subRoute": {}
   },
-  {
+
+  "RESUME": {
     "name": "Resume",
     "url": "/resume",
-    "subRoute": []
+    "subRoute": {}
   },
-  {
+
+  "BLOG": {
     "name": "Blog",
     "url": "/blog",
-    "subRoute": []
+    "subRoute": {}
   }
-]
+}

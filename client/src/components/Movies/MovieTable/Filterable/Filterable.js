@@ -11,7 +11,7 @@ function Filterable({
   resetPagination,
 }) {
   const wrapperRef = useRef(null);
-  const clickedOutside = useDetectOutside(wrapperRef);
+  const [clickedOutside] = useDetectOutside(wrapperRef);
 
   const [showSourceFilter, setShowSourceFilter] = useState(false);
 
@@ -24,7 +24,7 @@ function Filterable({
       <div className="filter-wrap" onClick={() => setShowSourceFilter((prev) => !prev)}>
         <p>{headerLabel}</p>
 
-        <FilterIcon fill={filterableFields.length ? "#00ffe7" : "white"} />
+        <FilterIcon fill={filterableFields.length ? "var(--green-200)" : "var(--snow-white)"} />
       </div>
       {showSourceFilter && (
         <div className="filter-options">
@@ -40,7 +40,7 @@ function Filterable({
                 value={name}
                 checked={filterableFields.includes(name)}
                 onChange={() => {
-                  resetPagination();
+                  if (resetPagination) resetPagination();
                   let temp = [...filterableFields];
                   if (!temp.includes(name)) {
                     temp.push(name);

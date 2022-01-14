@@ -27,6 +27,7 @@ function MovieCard({
 }) {
   let {
     pagination: { movieCurrentPage, setMovieCurrentPage },
+    users: { userDetails },
   } = useContext(GlobalContext);
 
   const [sourceFilter, setSourceFilter] = useState([]);
@@ -141,18 +142,20 @@ function MovieCard({
                     )}
                   </div>
                 </div>
-                <MovieAction
-                  id={id}
-                  setId={setEditId}
-                  isCurrentId={editId === id}
-                  updateBody={() => setUpdateBody({ source, watchQueue, rewatchScore })}
-                  reset={() => {
-                    setEditId(null);
-                    setUpdateBody({});
-                  }}
-                  watched={watched}
-                  updateMovie={updateMovie}
-                />
+                {userDetails?.isAdmin && (
+                  <MovieAction
+                    id={id}
+                    setId={setEditId}
+                    isCurrentId={editId === id}
+                    updateBody={() => setUpdateBody({ source, watchQueue, rewatchScore })}
+                    reset={() => {
+                      setEditId(null);
+                      setUpdateBody({});
+                    }}
+                    watched={watched}
+                    updateMovie={updateMovie}
+                  />
+                )}
               </section>
             )
           )}

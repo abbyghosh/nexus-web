@@ -1,16 +1,15 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
+
+import axiosConfig from "../../../../axiosConfig";
+import { GlobalContext } from "../../../../context/GlobalState";
+
+import ConfirmationDialog from "../../../common/Modal/ConfirmationDialog/ConfirmationDialog";
 
 import { ReactComponent as EditIcon } from "../../../../assets/icons/edit.svg";
 import { ReactComponent as DeleteIcon } from "../../../../assets/icons/delete.svg";
 import { ReactComponent as SeenIcon } from "../../../../assets/icons/seen.svg";
 import { ReactComponent as UpdateIcon } from "../../../../assets/icons/save-tick.svg";
 import { ReactComponent as CloseIcon } from "../../../../assets/icons/dont-save-close.svg";
-
-import { GlobalContext } from "../../../../context/GlobalState";
-import ConfirmationDialog from "../../../common/ConfirmationDialog/ConfirmationDialog";
-
-import { BASE_URL } from "../../../../utils/constants";
 
 import "./movieAction.scss";
 
@@ -23,8 +22,8 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   const deleteMovie = (id) => {
-    axios
-      .delete(`${BASE_URL}/movies/${id}`)
+    axiosConfig
+      .delete(`/movies/${id}`)
       .then((res) => {
         console.log(res);
         getAllMovies();
@@ -65,16 +64,18 @@ function MovieAction({ id, isCurrentId, setId, watched, updateMovie, updateBody,
         handleAccept={() => {
           updateMovie(id, { watched: true });
         }}
-        body={"Are you sure to mark the movie seen?"}
-      />
+      >
+        <p>Are you sure to mark the movie seen?</p>
+      </ConfirmationDialog>
       <ConfirmationDialog
         isOpen={editModalOpen}
         closeModal={() => setEditModalOpen(false)}
         handleAccept={() => {
           deleteMovie(id);
         }}
-        body={"Are you sure to delete the movie?"}
-      />
+      >
+        <p>Are you sure to delete the movie?</p>
+      </ConfirmationDialog>
     </div>
   );
 }

@@ -1,19 +1,20 @@
+@import "../../../../styles/abstract";
+
 .toast {
   position: fixed;
+  z-index: 10000;
   top: 14px;
   right: 34px;
-  z-index: 1;
-  /* left: 50%; */
-  /* transform: translate(-50%, 0); */
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: fit-content;
+  max-width: 80%;
+  padding: 6px 14px;
   font-size: 14px;
   font-weight: 600;
-  max-width: 350px;
-  padding: 6px 14px;
-  margin: 0 30px;
   border-radius: 2px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+  @include flexbox(null, center, 10px);
 
   > svg {
     flex-shrink: 0;

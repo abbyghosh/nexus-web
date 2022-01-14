@@ -1,0 +1,41 @@
+@import "../../../styles/abstract";
+
+.modal {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  background-color: hsla(0, 0%, 50%, 0.6);
+  @include flexbox(center, center);
+
+  .modal-container {
+    min-width: 300px;
+    max-width: 600px;
+    background-color: var(--black-600);
+    border-radius: 4px;
+
+    @include mobile {
+      max-width: 90%;
+    }
+
+    $inline-padding: 20px;
+
+    .modal-header {
+      padding: 6px $inline-padding;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--black-400);
+
+      @include flexbox(space-between, center);
+    }
+
+    .modal-body {
+      padding: 10px $inline-padding;
+      max-height: 70vh;
+      overflow: auto;
+
+      @include mobile {
+        max-height: 50vh;
+      }
+    }
+  }
+}

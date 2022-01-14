@@ -22,7 +22,7 @@ function useDetectOutside(ref) {
     };
   }, [ref]);
 
-  return clickedOutside;
+  return [clickedOutside, setClickedOutside];
 }
 
 export default useDetectOutside;

@@ -1,0 +1,9 @@
+<svg width="24" viewBox="0 0 24 24" fill="none" stroke="white" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M13.2222 17V18.25C13.2222 20.3211 11.5807 22 9.55556 22H4.66667C2.64163 22 1 20.3211 1 18.25V5.75C1 3.67894 2.64163 2 4.66667 2H9.55556C11.5807 2 13.2222 3.67894 13.2222 5.75V7M18.1111 17L23 12L18.1111 17ZM23 12L18.1111 7L23 12ZM23 12H5.88889H23Z"
+        stroke="inherit"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+</svg>
