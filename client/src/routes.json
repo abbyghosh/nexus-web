@@ -2,18 +2,21 @@
   "MOVIES": {
     "name": "Movies",
     "url": "/",
+    "isProtected": false,
     "subRoute": {}
   },
 
   "RESUME": {
     "name": "Resume",
     "url": "/resume",
+    "isProtected": true,
     "subRoute": {}
   },
 
   "BLOG": {
     "name": "Blog",
     "url": "/blog",
+    "isProtected": true,
     "subRoute": {}
   }
 }
