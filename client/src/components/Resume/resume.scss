@@ -1,0 +1,305 @@
+@import "../../styles/abstract";
+
+.resume {
+  $left-width: 35%;
+  background-color: var(--white);
+  color: var(--black-700);
+  padding: 30px;
+  width: 595pt;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  h5 {
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  .header {
+    @include flexbox;
+    margin-bottom: 16px;
+
+    > div {
+      flex-basis: 250px;
+      flex-shrink: 0;
+
+      img {
+        border-radius: 50%;
+        margin-left: 20px;
+      }
+    }
+
+    .head {
+      flex-grow: 1;
+
+      padding: 12px 18px;
+      border: 2px solid var(--blue-500);
+      border-radius: 4px;
+
+      @include flexbox(space-between, center, null, column);
+
+      .name {
+        text-align: center;
+        letter-spacing: 8px;
+        word-spacing: 14px;
+        font-size: 26px;
+        text-transform: uppercase;
+      }
+
+      .title {
+        @include flexbox(space-between, center, 20px);
+        width: 100%;
+        letter-spacing: 4px;
+        line-height: 26px;
+        text-transform: uppercase;
+        color: var(--blue-600);
+
+        &:before,
+        &:after {
+          content: "";
+          height: 2px;
+          background-color: var(--black-500);
+          flex-grow: 1;
+        }
+      }
+
+      .contact-details {
+        @include flexbox(space-between, null, null, null, wrap);
+        column-gap: 10px;
+        row-gap: 4px;
+
+        > * {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--black-500);
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .group {
+    padding: 8px 18px;
+    border: 2px solid var(--blue-500);
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    .title {
+      text-transform: uppercase;
+      text-align: center;
+      padding-bottom: 4px;
+      border-bottom: 6px solid var(--blue-600);
+      display: block;
+      margin: 0 auto;
+      width: fit-content;
+      font-size: 16px;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    > :nth-child(2) {
+      padding-top: 12px;
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        height: 2px;
+        width: 100%;
+        background-color: var(--black-500);
+      }
+    }
+
+    .pills {
+      @include flexbox(space-between, null, null, null, wrap);
+      column-gap: 4px;
+      row-gap: 6px;
+
+      > * {
+        padding: 2px 8px;
+        background-color: var(--blue-600);
+        color: white;
+        border-radius: 6px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .body {
+    display: flex;
+    gap: 10px;
+
+    .left-column {
+      flex-basis: $left-width;
+
+      .objectives {
+        text-align: justify;
+      }
+
+      .primary-skills {
+      }
+    }
+
+    .right-column {
+      flex-basis: calc(100% - #{$left-width});
+
+      .company {
+        /* margin-bottom: 30px; */
+
+        &-title {
+          font-size: 16px;
+          text-decoration: none;
+          color: currentColor;
+
+          padding: 2px 12px;
+          background-color: var(--blue-600);
+          color: white;
+          border-radius: 6px;
+        }
+        &-duration {
+          font-size: 12px;
+          color: var(--black-500);
+        }
+        &-desig {
+          font-size: 14px;
+        }
+        .projects {
+          padding: 10px 14px;
+
+          .project-head {
+            @include flexbox(null, center, 20px);
+            .project-name {
+              font-weight: 700;
+              font-size: 16px;
+              flex-basis: 150px;
+            }
+
+            .project-duration {
+              font-size: 12px;
+              color: var(--black-500);
+            }
+          }
+        }
+      }
+    }
+
+    // timeline styles
+    .work-experience {
+      position: relative;
+      margin-left: 20px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 24px;
+        left: -20px;
+        height: calc(100% - 38px);
+        width: 2px;
+        background-color: var(--blue-500);
+      }
+    }
+
+    .company-title {
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: -29px;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: var(--blue-500);
+      }
+    }
+
+    .project-name {
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: -42px;
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background-color: var(--white);
+        border: 4px solid var(--blue-500);
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .inline {
+    @include flexbox(space-between, center);
+  }
+  .download-hanging {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    -webkit-tap-highlight-color: transparent;
+    background-color: var(--green-200);
+    border-radius: 50%;
+    display: flex;
+    color: var(--black-800);
+
+    &:active {
+      color: #fb9a9a;
+      background-color: var(--white);
+    }
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
+
+@media print {
+  header {
+    display: none;
+  }
+
+  .resume {
+    margin-top: 0;
+    .download-hanging {
+      display: none;
+    }
+  }
+}
