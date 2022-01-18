@@ -142,7 +142,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
     };
 
     try {
-      await axiosConfig("/movies", movieBody);
+      await axiosConfig.post("/movies", movieBody);
       getAllMovies();
       addMoviePosition(movieBody.imDbId);
     } catch (err) {
