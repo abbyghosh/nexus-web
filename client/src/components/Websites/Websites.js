@@ -5,6 +5,7 @@ import { GlobalContext } from "../../context/GlobalState";
 import Button from "../common/Button/Button";
 import Modal from "../common/Modal/Modal";
 import WebsiteModal from "./WebsiteModal/WebsiteModal";
+import Loading from "../common/Loading/Loading";
 
 import { ReactComponent as DeleteIcon } from "../../../src/assets/icons/delete.svg";
 
@@ -18,11 +19,11 @@ function Websites() {
     toast: { toastDispatch },
   } = useContext(GlobalContext);
 
+  const [websites, setWebsites] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(0);
-
-  const [submitting, setSubmitting] = useState(false);
-  const [websites, setWebsites] = useState([]);
 
   // [
   //   {
@@ -100,36 +101,42 @@ function Websites() {
   return (
     <>
       <main className="websites">
-        <div className="sub-head">
-          <div className="filter-by-tags">
-            Tags:<div> </div>
-          </div>
-          <Button variant="light" onClick={() => setIsAddModalOpen(true)}>
-            Add
-          </Button>
-        </div>
-        <div className="websites-wrapper">
-          {websites.map((ele) => (
-            <section key={ele._id}>
-              <a href={ele.url} target="_blank" rel="noreferrer">
-                <div className="name">{ele.name}</div>
-                <span>|</span>
-                <div className="url">{ele.url}</div>
-              </a>
-              <div className="desc-container">
-                <p>{ele.description}</p>
-                <DeleteIcon width="20" onClick={() => setDeleteConfirmOpen(ele._id)} />
+        {submitting ? (
+          <Loading />
+        ) : (
+          <>
+            <div className="sub-head">
+              <div className="filter-by-tags">
+                Tags:<div> </div>
               </div>
-              <div className="tags">
-                {ele.tags.map((ele) => (
-                  <span key={ele} className="tag">
-                    {ele}
-                  </span>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
+              <Button variant="light" onClick={() => setIsAddModalOpen(true)}>
+                Add
+              </Button>
+            </div>
+            <div className="websites-wrapper">
+              {websites.map((ele) => (
+                <section key={ele._id}>
+                  <a href={ele.url} target="_blank" rel="noreferrer">
+                    <div className="name">{ele.name}</div>
+                    <span>|</span>
+                    <div className="url">{ele.url}</div>
+                  </a>
+                  <div className="desc-container">
+                    <p>{ele.description}</p>
+                    <DeleteIcon width="20" onClick={() => setDeleteConfirmOpen(ele._id)} />
+                  </div>
+                  <div className="tags">
+                    {ele.tags.map((ele) => (
+                      <span key={ele} className="tag">
+                        {ele}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </>
+        )}
       </main>
       <Modal header="Login" isOpen={isAddModalOpen} handleCLose={handleAddClose}>
         <WebsiteModal

@@ -67,19 +67,6 @@ main {
   -webkit-tap-highlight-color: transparent;
 }
 
-#loading {
-  animation: spin 3s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
-  }
-}
-
 //SVG as button
 button.button-svg {
   background-color: transparent;

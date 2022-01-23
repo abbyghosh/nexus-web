@@ -5,11 +5,11 @@ import { GlobalContext } from "../../context/GlobalState";
 import useDevice from "../../customHooks/useDevice";
 import MovieCard from "./MovieCard/MovieCard";
 import MovieTable from "./MovieTable/MovieTable";
+import Loading from "../common/Loading/Loading";
 
 import { ReactComponent as TableIcon } from "../../assets/icons/table.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as GoToTopIcon } from "../../assets/icons/circle-arrow-top.svg";
-import { ReactComponent as LoadingIcon } from "../../assets/icons/loading.svg";
 
 import { debounce, scrollToMovieCardPixel } from "../../utils";
 import { ORDER_BY } from "../../utils/constants";
@@ -162,9 +162,7 @@ function Movies() {
       </div>
 
       {loading ? (
-        <div className="movie-loading">
-          <LoadingIcon width="70" />
-        </div>
+        <Loading width="70" />
       ) : (
         <>
           <div className="main-inner-wrapper">

@@ -8,12 +8,6 @@ main.movies-container {
   padding-right: 10px;
   box-sizing: border-box;
 
-  .movie-loading {
-    height: 50vh;
-    width: 100%;
-    @include flexbox(center, center);
-  }
-
   .main-inner-wrapper {
     margin-bottom: 20px;
   }
