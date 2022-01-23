@@ -46,16 +46,23 @@
   }
 
   .header {
-    @include flexbox;
+    @include flexbox(null, null, 30px);
     margin-bottom: 16px;
 
-    > div {
-      flex-basis: 250px;
+    .img-holder {
+      width: 166px;
+      height: 166px;
       flex-shrink: 0;
+      border-radius: 28px;
+      background: rgba(248, 80, 50, 1);
+      background: linear-gradient(to bottom right, var(--blue-600) 50%, #ffffff00 50%);
+
+      @include flexbox(center, center);
 
       img {
         border-radius: 50%;
-        margin-left: 20px;
+        padding: 8px;
+        background: white;
       }
     }
 
@@ -95,7 +102,7 @@
 
       .contact-details {
         @include flexbox(space-between, null, null, null, wrap);
-        column-gap: 10px;
+        column-gap: 14px;
         row-gap: 4px;
 
         > * {
@@ -144,20 +151,6 @@
         background-color: var(--black-500);
       }
     }
-
-    .pills {
-      @include flexbox(space-between, null, null, null, wrap);
-      column-gap: 4px;
-      row-gap: 6px;
-
-      > * {
-        padding: 2px 8px;
-        background-color: var(--blue-600);
-        color: white;
-        border-radius: 6px;
-        font-size: 12px;
-      }
-    }
   }
 
   .body {
@@ -166,110 +159,13 @@
 
     .left-column {
       flex-basis: $left-width;
-
-      .objectives {
-        text-align: justify;
-      }
-
-      .primary-skills {
-      }
     }
 
     .right-column {
       flex-basis: calc(100% - #{$left-width});
-
-      .company {
-        /* margin-bottom: 30px; */
-
-        &-title {
-          font-size: 16px;
-          text-decoration: none;
-          color: currentColor;
-
-          padding: 2px 12px;
-          background-color: var(--blue-600);
-          color: white;
-          border-radius: 6px;
-        }
-        &-duration {
-          font-size: 12px;
-          color: var(--black-500);
-        }
-        &-desig {
-          font-size: 14px;
-        }
-        .projects {
-          padding: 10px 14px;
-
-          .project-head {
-            @include flexbox(null, center, 20px);
-            .project-name {
-              font-weight: 700;
-              font-size: 16px;
-              flex-basis: 150px;
-            }
-
-            .project-duration {
-              font-size: 12px;
-              color: var(--black-500);
-            }
-          }
-        }
-      }
-    }
-
-    // timeline styles
-    .work-experience {
-      position: relative;
-      margin-left: 20px;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 24px;
-        left: -20px;
-        height: calc(100% - 38px);
-        width: 2px;
-        background-color: var(--blue-500);
-      }
-    }
-
-    .company-title {
-      position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: -29px;
-        height: 20px;
-        width: 20px;
-        border-radius: 50%;
-        background-color: var(--blue-500);
-      }
-    }
-
-    .project-name {
-      position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 2px;
-        left: -42px;
-        height: 18px;
-        width: 18px;
-        border-radius: 50%;
-        background-color: var(--white);
-        border: 4px solid var(--blue-500);
-        box-sizing: border-box;
-      }
     }
   }
 
-  .inline {
-    @include flexbox(space-between, center);
-  }
   .download-hanging {
     position: fixed;
     bottom: 50px;
@@ -287,9 +183,61 @@
 
     svg {
       fill: currentColor;
+      padding: 2px;
     }
   }
 }
+
+// timeline styles
+.timeline-line {
+  position: relative;
+  margin-left: 20px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: -20px;
+    height: calc(100% - 38px);
+    width: 2px;
+    background-color: var(--blue-500);
+  }
+}
+
+.timeline-indicator {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -29px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: var(--blue-500);
+  }
+}
+
+.timeline-indicator-secondary {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: -50px;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 4px solid var(--blue-500);
+    box-sizing: border-box;
+  }
+}
+
+//End timeline style
 
 @media print {
   header {
@@ -301,5 +249,10 @@
     .download-hanging {
       display: none;
     }
+  }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 20px;
   }
 }

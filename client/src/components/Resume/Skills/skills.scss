@@ -1,0 +1,17 @@
+@import "../../../styles/abstract";
+
+.resume {
+  .pills {
+    @include flexbox(space-between, null, null, null, wrap);
+    column-gap: 4px;
+    row-gap: 6px;
+
+    > * {
+      padding: 2px 8px;
+      background-color: var(--blue-600);
+      color: white;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+  }
+}

@@ -18,5 +18,12 @@
     "url": "/blog",
     "isProtected": true,
     "subRoute": {}
+  },
+
+  "WEBSITES": {
+    "name": "Useful Websites",
+    "url": "/websites",
+    "isProtected": true,
+    "subRoute": {}
   }
 }

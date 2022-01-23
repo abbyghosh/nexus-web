@@ -76,3 +76,18 @@
     font-size: 16px;
   }
 }
+
+.inlined {
+  @include flexbox(null, center, 10px);
+}
+
+.badges {
+  @include flexbox(null, center, 10px, null, wrap);
+  margin-top: 10px;
+
+  > span {
+    padding: 2px 10px;
+    background-color: var(--black-400);
+    border-radius: 6px;
+  }
+}

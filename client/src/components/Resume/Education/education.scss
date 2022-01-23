@@ -1,0 +1,47 @@
+@import "../../../styles/abstract";
+
+.education {
+  position: relative;
+  $line: 94px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: $line;
+    height: calc(100% - 26px);
+    width: 2px;
+    background-color: var(--blue-500);
+  }
+
+  > section {
+    @include flexbox(null, null, 30px);
+    margin-bottom: 20px;
+
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: calc(#{$line} - 5px);
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background-color: var(--blue-500);
+    }
+
+    .left {
+      flex-shrink: 0;
+      margin-left: 20px;
+    }
+
+    h3 {
+      font-size: 13px;
+    }
+
+    .location {
+      font-weight: 400;
+    }
+  }
+}

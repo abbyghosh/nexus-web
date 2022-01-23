@@ -1,6 +1,10 @@
 import React from "react";
 
-import Section from "./Section";
+import Objective from "./Objective/Objective";
+import Skills from "./Skills/Skills";
+import Experience from "./Experience/Experience";
+import Education from "./Education/Education";
+import Achievements from "./Achievements/Achievements";
 
 import profile from "../../assets/images/abhishekprofile.jpeg";
 import { ReactComponent as DownloadIcon } from "../../assets/icons/download.svg";
@@ -121,8 +125,8 @@ function Resume() {
   return (
     <main className="resume">
       <section className="header">
-        <div>
-          <img src={profile} alt="Abhishek's profile" height="150" width="150" />
+        <div className="img-holder">
+          <img src={profile} alt="Abhishek's profile" height="130" width="130" />
         </div>
 
         <section className="head">
@@ -142,95 +146,17 @@ function Resume() {
 
       <div className="body">
         <div className="left-column">
-          <Section title="OBJECTIVES">
-            <p className="objectives">{data.objectives}</p>
-          </Section>
-
-          <Section title="PRIMARY SKILLS">
-            <div className="primary-skills pills">
-              {data.primarySkills.map((ele) => (
-                <h3>{ele}</h3>
-              ))}
-            </div>
-          </Section>
-          <Section title="LIBRARY">
-            <div className="library pills">
-              {data.library.map((ele) => (
-                <h3>{ele}</h3>
-              ))}
-            </div>
-          </Section>
-          <Section title="SECONDARY SKILLS">
-            <div className="secondary-skills pills">
-              {data.secondarySkills.map((ele) => (
-                <h3>{ele}</h3>
-              ))}
-            </div>
-          </Section>
-          <Section title="LANGUAGES">
-            <div className="languages pills">
-              {data.languages.map((ele) => (
-                <h3>{ele}</h3>
-              ))}
-            </div>
-          </Section>
+          <Objective title="OBJECTIVES" data={data.objectives} />
+          <Skills title="PRIMARY SKILLS" data={data.primarySkills} />
+          <Skills title="LIBRARY" data={data.library} />
+          <Skills title="SECONDARY SKILLS" data={data.secondarySkills} />
+          <Skills title="LANGUAGES" data={data.languages} className="page-break" />
         </div>
 
         <div className="right-column">
-          <Section title="WORK EXPERIENCE">
-            <div className="work-experience">
-              {data.workExperience.map((ele) => (
-                <section className="company">
-                  <div className="inline">
-                    <a href={ele.url} className="company-title">
-                      {ele.companyName}
-                    </a>
-                    <h3 className="company-duration">{ele.duration}</h3>
-                  </div>
-                  <h3 className="company-desig">{ele.degignation}</h3>
-                  {ele.projects.map((project) => (
-                    <section className="projects">
-                      <div className="project-head">
-                        <h4 className="project-name">{project.projectName}</h4>
-                        <h4 className="project-duration">{project.duration}</h4>
-                      </div>
-                      <h4 className="project-technology">{project.technology}</h4>
-                      <p>{project.abstract}</p>
-                      <ul>
-                        {project.responsibilities.map((resp) => (
-                          <li>{resp}</li>
-                        ))}
-                      </ul>
-                    </section>
-                  ))}
-                </section>
-              ))}
-            </div>
-          </Section>
-
-          <Section title="EDUCATION">
-            <div className="education">
-              {data.education.map((ele) => (
-                <section>
-                  <h3>{ele.name}</h3>
-                  <h3>{ele.designation}</h3>
-                  <h3>{ele.stream}</h3>
-                  <h3>{ele.location}</h3>
-                  <h3>{ele.year}</h3>
-                </section>
-              ))}
-            </div>
-          </Section>
-
-          <Section title="ACHIEVEMENTS">
-            <section>
-              <ul className="achievements">
-                {data.achievements.map((ele) => (
-                  <li>{ele}</li>
-                ))}
-              </ul>
-            </section>
-          </Section>
+          <Experience title="WORK EXPERIENCE" data={data.workExperience} />
+          <Education title="EDUCATION" data={data.education} />
+          <Achievements title="ACHIEVEMENTS" data={data.achievements} />
         </div>
       </div>
 

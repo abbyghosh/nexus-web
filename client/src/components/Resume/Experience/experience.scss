@@ -1,0 +1,86 @@
+@import "../../../styles/abstract";
+
+.work-experience {
+  .company {
+    /* margin-bottom: 30px; */
+
+    .company-head {
+      @include flexbox(space-between, center);
+      margin-bottom: 4px;
+    }
+
+    &-title {
+      font-size: 16px;
+      text-decoration: none;
+      color: currentColor;
+
+      padding: 2px 12px;
+      background-color: var(--blue-600);
+      color: white;
+      border-radius: 6px;
+    }
+
+    &-duration {
+      font-size: 12px;
+      color: var(--black-500);
+    }
+
+    &-desig {
+      font-size: 14px;
+    }
+
+    .projects {
+      padding: 10px 14px;
+
+      .project-head {
+        position: relative;
+        margin-left: 8px;
+        @include flexbox(null, center, 20px);
+
+        &:before {
+          content: "";
+          position: absolute;
+          left: -8px;
+          top: 0;
+          width: 4px;
+          height: 100%;
+          background: #dedede;
+        }
+        .project-name {
+          font-weight: 700;
+          font-size: 16px;
+          flex-basis: 150px;
+        }
+
+        .project-duration {
+          font-size: 12px;
+          color: var(--black-500);
+        }
+      }
+
+      .project-technology {
+        @include flexbox(null, null, 10px);
+        margin-bottom: 6px;
+
+        label {
+          color: #4b4b4b;
+        }
+        p {
+          color: var(--black-700);
+        }
+      }
+
+      .project-abstract {
+        margin-bottom: 10px;
+        color: var(--black-700);
+      }
+    }
+
+    &:first-child .company-duration {
+      background-color: #878787;
+      color: #f4f4f4;
+      padding: 1px 6px;
+      border-radius: 8px;
+    }
+  }
+}

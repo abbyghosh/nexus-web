@@ -1,4 +1,5 @@
 import React from "react";
+import ArrayInput from "./ArrayInput";
 
 import Input from "./Input";
 import Textarea from "./Textarea";
@@ -12,6 +13,9 @@ function FormControl(props) {
 
     case "textarea":
       return <Textarea {...rest} />;
+
+    case "array":
+      return <ArrayInput {...rest} />;
 
     default:
       return null;

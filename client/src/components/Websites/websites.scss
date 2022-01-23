@@ -1,0 +1,81 @@
+@import "../../styles/abstract";
+
+.websites {
+  margin-bottom: 30px;
+
+  .sub-head {
+    @include flexbox(space-between, center, 20px);
+    margin-bottom: 20px;
+
+    .filter-by-tags {
+      > div {
+        @include flexbox(center, 20px, null, wrap);
+      }
+    }
+  }
+
+  .websites-wrapper {
+    @include flexbox(null, null, 16px, null, wrap);
+
+    > section {
+      background: var(--black-500);
+      padding: 10px;
+      border-radius: 4px;
+      flex-basis: 250px;
+      flex-shrink: 0;
+
+      @include mobile {
+        flex-basis: 100%;
+        box-sizing: border-box;
+      }
+
+      a {
+        @include flexbox(null, center, 6px);
+        color: white;
+        text-decoration: none;
+
+        .name {
+          font-size: 14px;
+          flex-shrink: 0;
+        }
+
+        .url {
+          font-size: 12px;
+          color: var(--black-200);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        span {
+          color: grey;
+          font-weight: 500;
+        }
+      }
+
+      .desc-container {
+        @include flexbox(space-between, center, 6px);
+        margin-top: 10px;
+        p {
+          font-size: 13px;
+        }
+      }
+
+      .tags {
+        @include flexbox(null, center, 6px, null, wrap);
+        margin-top: 10px;
+        padding-top: 5px;
+        border-top: 1px solid grey;
+
+        .tag {
+          padding: 3px 10px;
+          background-color: #9b009b;
+          color: white;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
