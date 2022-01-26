@@ -4,10 +4,10 @@ import "./loading.scss";
 
 import { ReactComponent as LoadingIcon } from "../../../assets/icons/loading.svg";
 
-function Loading() {
+function Loading({ width = 70 }) {
   return (
     <div className="loading">
-      <LoadingIcon width="70" />
+      <LoadingIcon width={width} />
     </div>
   );
 }

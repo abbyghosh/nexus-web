@@ -5,6 +5,7 @@ import { GlobalContext } from "../../context/GlobalState";
 import Button from "../common/Button/Button";
 import Modal from "../common/Modal/Modal";
 import WebsiteModal from "./WebsiteModal/WebsiteModal";
+import ConfirmationDialog from "../common/Modal/ConfirmationDialog/ConfirmationDialog";
 import Loading from "../common/Loading/Loading";
 
 import { ReactComponent as DeleteIcon } from "../../../src/assets/icons/delete.svg";
@@ -12,7 +13,6 @@ import { ReactComponent as DeleteIcon } from "../../../src/assets/icons/delete.s
 import { WESBITE } from "../../utils/api";
 
 import "./websites.scss";
-import ConfirmationDialog from "../common/Modal/ConfirmationDialog/ConfirmationDialog";
 
 function Websites() {
   let {
@@ -98,6 +98,20 @@ function Websites() {
     }
   };
 
+  const replaceUrlPrefix = (url) => {
+    let replacedUrl = "";
+
+    ["https://www.", "http://www.", "https://", "http://"].some((ele) => {
+      if (url.includes(ele)) {
+        replacedUrl = url.replace(ele, "");
+        return true;
+      }
+      return false;
+    });
+
+    return replacedUrl || url;
+  };
+
   return (
     <>
       <main className="websites">
@@ -119,7 +133,7 @@ function Websites() {
                   <a href={ele.url} target="_blank" rel="noreferrer">
                     <div className="name">{ele.name}</div>
                     <span>|</span>
-                    <div className="url">{ele.url}</div>
+                    <div className="url">{replaceUrlPrefix(ele.url)}</div>
                   </a>
                   <div className="desc-container">
                     <p>{ele.description}</p>

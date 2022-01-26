@@ -21,7 +21,7 @@
   },
 
   "WEBSITES": {
-    "name": "Useful Websites",
+    "name": "Tools",
     "url": "/websites",
     "isProtected": true,
     "subRoute": {}

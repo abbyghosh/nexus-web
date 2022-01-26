@@ -29,9 +29,12 @@
     }
 
     .modal-body {
-      padding: 16px $inline-padding;
       max-height: 70vh;
       overflow: auto;
+
+      margin: 8px $inline-padding;
+      margin-right: 6px;
+      padding-right: 10px;
 
       @include mobile {
         max-height: 50vh;
