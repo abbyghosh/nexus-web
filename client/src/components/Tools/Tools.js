@@ -4,7 +4,7 @@ import { GlobalContext } from "../../context/GlobalState";
 
 import Button from "../common/Button/Button";
 import Modal from "../common/Modal/Modal";
-import WebsiteModal from "./WebsiteModal/WebsiteModal";
+import ToolModal from "./ToolModal/ToolModal";
 import ConfirmationDialog from "../common/Modal/ConfirmationDialog/ConfirmationDialog";
 import Loading from "../common/Loading/Loading";
 
@@ -12,14 +12,14 @@ import { ReactComponent as DeleteIcon } from "../../../src/assets/icons/delete.s
 
 import { WESBITE } from "../../utils/api";
 
-import "./websites.scss";
+import "./tools.scss";
 
 function Websites() {
   let {
     toast: { toastDispatch },
   } = useContext(GlobalContext);
 
-  const [websites, setWebsites] = useState([]);
+  const [tools, setWebsites] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -114,7 +114,7 @@ function Websites() {
 
   return (
     <>
-      <main className="websites">
+      <main className="tools">
         {submitting ? (
           <Loading />
         ) : (
@@ -127,8 +127,8 @@ function Websites() {
                 Add
               </Button>
             </div>
-            <div className="websites-wrapper">
-              {websites.map((ele) => (
+            <div className="tools-wrapper">
+              {tools.map((ele) => (
                 <section key={ele._id}>
                   <a href={ele.url} target="_blank" rel="noreferrer">
                     <div className="name">{ele.name}</div>
@@ -153,7 +153,7 @@ function Websites() {
         )}
       </main>
       <Modal header="Login" isOpen={isAddModalOpen} handleCLose={handleAddClose}>
-        <WebsiteModal
+        <ToolModal
           handleCLose={() => {
             handleAddClose();
             getAllWebsites();

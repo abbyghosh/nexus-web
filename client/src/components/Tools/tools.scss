@@ -1,6 +1,6 @@
 @import "../../styles/abstract";
 
-.websites {
+.tools {
   margin-bottom: 30px;
 
   .sub-head {
@@ -14,7 +14,7 @@
     }
   }
 
-  .websites-wrapper {
+  .tools-wrapper {
     @include flexbox(null, null, 16px, null, wrap);
 
     > section {

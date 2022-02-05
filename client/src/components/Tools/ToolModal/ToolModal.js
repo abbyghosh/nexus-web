@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
+
 import axiosConfig from "../../../axiosConfig";
 import { GlobalContext } from "../../../context/GlobalState";
-import { WESBITE } from "../../../utils/api";
+
 import Button from "../../common/Button/Button";
 import FormControl from "../../common/FormFields/FormControl";
 
-function WebsiteModal({ handleCLose }) {
+import { WESBITE } from "../../../utils/api";
+
+function ToolModal({ handleCLose }) {
   let {
     toast: { toastDispatch },
   } = useContext(GlobalContext);
@@ -103,4 +106,4 @@ function WebsiteModal({ handleCLose }) {
   );
 }
 
-export default WebsiteModal;
+export default ToolModal;

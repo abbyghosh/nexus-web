@@ -20,9 +20,16 @@
     "subRoute": {}
   },
 
-  "WEBSITES": {
+  "TOOLS": {
     "name": "Tools",
-    "url": "/websites",
+    "url": "/tools",
+    "isProtected": true,
+    "subRoute": {}
+  },
+
+  "BOOKMARKS": {
+    "name": "Bookmarks",
+    "url": "/bookmarks",
     "isProtected": true,
     "subRoute": {}
   }
