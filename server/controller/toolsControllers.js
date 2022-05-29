@@ -1,4 +1,4 @@
-const Website = require("../models/Website");
+const Website = require("../models/Tools");
 
 const getAllWebsites = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ const getAllWebsites = async (req, res) => {
     res.json({ result: websites });
   } catch (err) {
     console.error(err.message);
-    if (err.name === "MongoError" && error.code === 11000) {
+    if (err.name === "MongoError" && err.code === 11000) {
       res.status(500).json({ message: "Duplicate entry" });
     }
   }

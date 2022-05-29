@@ -1,0 +1,73 @@
+[
+  [
+    {
+      "title": "How to configure webpack for react?",
+      "description": "Configure webpack using webpack react aand tools",
+      "url": "https://www.abc.com",
+      "source": "Youtube",
+      "category": "Frontend",
+      "topic": "React",
+      "tags": ["react", "webpack"],
+      "newTags": ["flexbox"]
+    },
+    {
+      "title": "How to configure webpack for react?",
+      "description": "Configure webpack using webpack react aand tools",
+      "url": "https://www.abc.com",
+      "source": "Article",
+      "category": "Backend",
+      "topic": "Node",
+      "tags": ["react", "webpack"],
+      "newTags": ["flexbox"]
+    }
+  ],
+
+  [
+    {
+      "category": "Frontend",
+      "topic": ["React", "Javascript", "HTML", "CSS", "Webpack", "AEM"]
+    }
+  ],
+
+  //Topic
+  [
+    {
+      "_id": "ObjectId",
+      "name": "React"
+    },
+    {
+      "_id": "ObjectId",
+      "name": "Javascript"
+    },
+    {
+      "_id": "ObjectId",
+      "name": "HTML"
+    },
+    {
+      "_id": "ObjectId",
+      "name": "CSS"
+    },
+    {
+      "_id": "ObjectId",
+      "name": "Webpack"
+    },
+    {
+      "_id": "ObjectId",
+      "name": "AEM"
+    }
+  ],
+
+  //Category
+  [
+    {
+      "_id": "12232323",
+      "name": "Frontend",
+      "topics": ["ObjectId"]
+    },
+    {
+      "_id": "12232323",
+      "name": "Backend",
+      "topics": ["ObjectId"]
+    }
+  ]
+]
