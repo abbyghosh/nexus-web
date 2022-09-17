@@ -13,6 +13,8 @@ import { IMDB_API_KEY } from "../../../utils/constants";
 import { debounce, scrollToMovieCardPixel } from "../../../utils";
 import { GlobalContext } from "../../../context/GlobalState";
 
+import { movieById } from "../../../services/movieService";
+
 import "./movieSearch.scss";
 
 const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
@@ -95,9 +97,7 @@ const MovieSearch = React.forwardRef(({ width, isMobile }, ref) => {
   };
 
   const getMovieById = async (movieId, movie) => {
-    let { data: movieRes } = await axios.get(
-      `https://imdb-api.com/en/API/Title/${IMDB_API_KEY[1]}/${movieId}/Ratings`
-    );
+    let { data: movieRes } = await movieById(movieId);
 
     let body;
     if (!movieRes.ratings) {

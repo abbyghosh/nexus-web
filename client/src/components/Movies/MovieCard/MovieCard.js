@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalState";
+import { movieById } from "../../../services/movieService";
 import { itemPerPage } from "../../../utils/constants";
 
 import TruncatedElement from "../../common/TruncatedElement/TruncatedElement";
@@ -36,6 +37,13 @@ function MovieCard({
   useEffect(() => {
     setSourceFilteredMovies((prev) => movies.filter((ele) => sourceFilter.includes(ele.source)));
   }, [sourceFilter]);
+
+  const getMovieById = async (movieId, id) => {
+    let {
+      data: { imDbRating },
+    } = await movieById(movieId);
+    updateMovie(id, { imDb: imDbRating });
+  };
 
   return (
     <>
@@ -111,7 +119,9 @@ function MovieCard({
                       )}
                     </div>
                     <TruncatedElement label={genres.join(", ")} className="genres" />
-                    <div>Imdb: {imDb || "-"}</div>
+                    <div>
+                      Imdb: {imDb || <span onClick={() => getMovieById(imDbId, id)}>-</span>}{" "}
+                    </div>
                     {displayWatched && (
                       <div>
                         Rewatch:
