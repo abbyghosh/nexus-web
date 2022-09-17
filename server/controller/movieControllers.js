@@ -6,7 +6,7 @@ const getAllMovies = async (req, res) => {
     res.json({ data: movies });
   } catch (err) {
     console.error(err.message);
-    if (err.name === "MongoError" && error.code === 11000) {
+    if (err.name === "MongoError" && err.code === 11000) {
       res.status(500).json({ message: "Duplicate entry" });
     }
   }

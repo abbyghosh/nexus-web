@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const movieRoutes = require("./routes/movieRoutes");
 const sourceRoutes = require("./routes/sourceRoutes");
 const userRoutes = require("./routes/userRoutes");
-const websiteRoutes = require("./routes/websiteRoutes");
+const toolsRoutes = require("./routes/toolsRoutes");
 
 const PORT = process.env.PORT || 4001;
 
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use("/api/movies", movieRoutes);
 app.use("/api/sources", sourceRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/website", websiteRoutes);
+app.use("/api/website", toolsRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

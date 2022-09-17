@@ -5,7 +5,7 @@ const {
   addWebsite,
   updateWebsite,
   removeWebsite,
-} = require("../controller/websiteControllers");
+} = require("../controller/toolsControllers");
 
 router.get("/", getAllWebsites);
 router.post("/", addWebsite);
