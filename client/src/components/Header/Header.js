@@ -31,7 +31,9 @@ function Header() {
         {/* Navigation for mobile */}
         {isMobile && <MenuOverlay />}
 
-        <LogoIcon width="50" />
+        {/* <LogoIcon width="50" /> */}
+        <img src="/favicon.svg" alt="logo" width={46} height={46} />
+
         {!isMobile && (
           <div className="search-with-nav">
             <MovieSearch />
