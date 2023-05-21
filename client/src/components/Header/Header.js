@@ -26,7 +26,10 @@ function Header() {
   };
 
   return (
-    <header>
+    <header
+      style={{ transform: isSearchOpen ? "translateX(-87vw)" : "translateX(0vw)" }}
+      className="scroll-right"
+    >
       <div className="header-inner">
         {/* Navigation for mobile */}
         {isMobile && <MenuOverlay />}
@@ -61,7 +64,7 @@ function Header() {
           )
         ) : null}
       </div>
-      {isSearchOpen && <MovieSearch width="100%" ref={searchRef} isMobile={isMobile} />}
+      {isSearchOpen && <MovieSearch ref={searchRef} isMobile={isMobile} />}
     </header>
   );
 }

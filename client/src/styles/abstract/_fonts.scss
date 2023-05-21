@@ -1,0 +1,79 @@
+// @mixin font-face($family-name) {
+//   @font-face {
+//     font-family: $family-name;
+//     src: url("../../assets/fonts-ttf/#{$family-name}.ttf") format("ttf");
+//   }
+// }
+
+// @include font-face("OpenSans-Bold");
+// @include font-face("OpenSans-BoldItalic");
+// @include font-face("OpenSans-Italic");
+// @include font-face("OpenSans-Medium");
+// @include font-face("OpenSans-MediumItalic");
+// @include font-face("OpenSans-Regular");
+// @include font-face("OpenSans-SemiBold");
+// @include font-face("OpenSans-SemiBoldItalic");
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-Regular.ttf") format("ttf");
+  font-weight: normal; //400
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-Italic.ttf") format("ttf");
+  font-weight: normal; //400
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-Medium.ttf") format("ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-MediumItalic.ttf") format("ttf");
+  font-weight: 500;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-SemiBold.ttf") format("ttf");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-SemiBoldItalic.ttf") format("ttf");
+  font-weight: 600;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-Bold.ttf") format("ttf");
+  font-weight: bold; // 700
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../../assets/fonts-tff/OpenSans-BoldItalic.ttf") format("ttf");
+  font-weight: bold; //700
+  font-style: italic;
+  font-display: block;
+}

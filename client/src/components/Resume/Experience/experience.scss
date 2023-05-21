@@ -1,86 +1,100 @@
 @import "../../../styles/abstract";
 
 .work-experience {
+  @include flexbox($gap: 10px, $dir: column);
+
   .company {
-    /* margin-bottom: 30px; */
+    margin-bottom: 10px;
 
     .company-head {
       @include flexbox(space-between, center);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    &-title {
-      font-size: 16px;
+    &-name {
+      font-size: var(--fs-company-name);
+      font-weight: 600;
       text-decoration: none;
       color: currentColor;
 
-      padding: 2px 12px;
-      background-color: var(--blue-600);
-      color: white;
-      border-radius: 6px;
+      padding: 4px 12px;
+      padding-left: 0px;
+      background-color: var(--bg-primary-color);
+      color: var(--text-light-color);
+      border-radius: 0px 6px 6px 0px;
+      letter-spacing: 1.5px;
+    }
+
+    &-misc {
+      @include flexbox(space-between, center);
     }
 
     &-duration {
-      font-size: 12px;
-      color: var(--black-500);
+      display: inline-block;
+      font-size: var(--fs-duration);
+      font-style: italic;
+      background-color: var(--text-secondary-color);
+      color: var(--text-light-color);
+      padding: 1px 10px;
+      border-radius: 8px;
     }
 
     &-desig {
-      font-size: 14px;
+      font-size: var(--fs-designation);
+      font-weight: 700;
     }
 
     .projects {
-      padding: 10px 14px;
+      /* padding: 16px 14px;
+      padding-right: 0px; */
 
-      .project-head {
-        position: relative;
-        margin-left: 8px;
-        @include flexbox(null, center, 20px);
+      padding-top: 14px;
+      padding-left: 10px;
+      @include flexbox($gap: 16px, $dir: column);
 
-        &:before {
-          content: "";
-          position: absolute;
-          left: -8px;
-          top: 0;
-          width: 4px;
-          height: 100%;
-          background: #dedede;
+      .project {
+        font-size: var(--fs-project-description);
+
+        .project-head {
+          position: relative;
+          //margin-left: 8px;
+          margin-bottom: 8px;
+
+          @include flexbox(null, center, 20px);
+
+          .project-name {
+            font-style: italic;
+            font-weight: 700;
+            font-size: var(--fs-project-name);
+            color: var(--text-secondary-color);
+          }
+
+          .project-duration {
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 500;
+          }
         }
-        .project-name {
-          font-weight: 700;
-          font-size: 16px;
-          flex-basis: 150px;
+
+        .project-technology {
+          @include flexbox(null, null, 10px);
         }
 
-        .project-duration {
-          font-size: 12px;
-          color: var(--black-500);
+        .project-body {
+          margin-left: 10px;
+
+          label {
+            color: var(--text-secondary-color);
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 6px;
+          }
+        }
+
+        .project-abstract {
+          margin-bottom: 10px;
         }
       }
-
-      .project-technology {
-        @include flexbox(null, null, 10px);
-        margin-bottom: 6px;
-
-        label {
-          color: #4b4b4b;
-        }
-        p {
-          color: var(--black-700);
-        }
-      }
-
-      .project-abstract {
-        margin-bottom: 10px;
-        color: var(--black-700);
-      }
-    }
-
-    &:first-child .company-duration {
-      background-color: #878787;
-      color: #f4f4f4;
-      padding: 1px 6px;
-      border-radius: 8px;
     }
   }
 }

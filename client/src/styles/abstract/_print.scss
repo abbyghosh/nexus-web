@@ -1,0 +1,23 @@
+/* Resume */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+
+  header,
+  .pagebreak-icon {
+    display: none;
+  }
+
+  .resume {
+    margin-top: 0;
+    .download-hanging {
+      display: none;
+    }
+  }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 20px;
+  }
+}

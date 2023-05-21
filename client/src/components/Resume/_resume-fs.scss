@@ -1,0 +1,55 @@
+:root {
+  --fs-standard: 16px;
+
+  --fs-candidate-name: 30px;
+  --fs-current-role: 18px;
+  --fs-contact-details: 12px;
+
+  --fs-heading: 18px;
+  --fs-objective: 13px;
+  --fs-achievements: 13px;
+  --fs-skills-pill: 12px;
+
+  --fs-company-name: 16px;
+  --fs-designation: 14px;
+  --fs-duration: 13px;
+  --fs-project-name: 14px;
+  --fs-project-description: 13px;
+
+  --fs-degree: 13px;
+  --fs-year: 13px;
+  --fs-institute: 13px;
+  --fs-stream: 13px;
+  --fs-location: 12px;
+
+  /* Colors */
+  // https://www.color-meanings.com/shades-of-black-color-names-html-hex-rgb-codes/
+  --clr-black-olive: #3b3c36; // title (heading)
+  --clr-davys-grey: #555555; // sub-heading
+  --clr-grey: #808080; // background || third-heading
+
+  //https://www.color-meanings.com/shades-of-white-color-names-html-hex-rgb-codes/
+  --clr-white: #ffffff;
+  --clr-ghost-white: #f8f8ff;
+  --clr-white-smoke: #f5f5f5;
+
+  //https://www.color-meanings.com/shades-of-blue-color-names-html-hex-rgb-codes/
+  --blue-sapphire: #126180;
+  --queen-blue: #436b95;
+  --aegean-blue: #4e6e81;
+  --blue-yonder: #5072a7;
+
+  --ax-blue-100: #158acb;
+  --ax-blue-200: #0084c7;
+  --ax-blue-300: #0a70a5;
+  --ax-blue-400: #138acb;
+
+  // App Color
+  --text-heading-color: var(--clr-black-olive);
+  --text-primary-color: var(--clr-davys-grey);
+  --text-secondary-color: var(--clr-grey);
+  --text-light-color: var(--clr-ghost-white);
+
+  --section-bg-color: var(--clr-white-smoke);
+  --bg-primary-color: var(--blue-yonder);
+}

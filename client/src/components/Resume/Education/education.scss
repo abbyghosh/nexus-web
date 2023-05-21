@@ -2,16 +2,16 @@
 
 .education {
   position: relative;
-  $line: 94px;
+  $line: 104px;
 
   &:after {
     content: "";
     position: absolute;
-    top: 24px;
+    top: 2px;
     left: $line;
-    height: calc(100% - 26px);
+    height: 100%;
     width: 2px;
-    background-color: var(--blue-500);
+    background-color: var(--bg-primary-color);
   }
 
   > section {
@@ -23,25 +23,45 @@
     &:before {
       content: "";
       position: absolute;
-      top: 4px;
+      top: 2px;
       left: calc(#{$line} - 5px);
       height: 12px;
       width: 12px;
       border-radius: 50%;
-      background-color: var(--blue-500);
+      background-color: var(--bg-primary-color);
     }
 
     .left {
       flex-shrink: 0;
       margin-left: 20px;
+      text-align: right;
     }
 
-    h3 {
-      font-size: 13px;
+    .degree,
+    .institute-name,
+    .stream {
+      font-weight: 700;
+    }
+
+    .degree {
+      font-size: var(--fs-degree);
+    }
+
+    .year {
+      font-size: var(--fs-year);
+    }
+
+    .institute-name {
+      font-size: var(--fs-institute);
+    }
+
+    .stream {
+      font-size: var(--fs-stream);
+      color: var(--text-secondary-color);
     }
 
     .location {
-      font-weight: 400;
+      font-size: var(--fs-location);
     }
   }
 }

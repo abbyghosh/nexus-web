@@ -6,9 +6,45 @@ header {
   position: fixed;
   inset: 0;
   z-index: 4;
+  @include flexbox(null, center);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-right {
+    /* transform: translateX(100vw); */
+    transition: transform 4s linear;
+  }
+
+  .scroll-left {
+    transform: translateX(-100vw);
+    transition: transform 4s linear;
+  }
+
+  > div {
+    width: 100vw;
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    &.mobile-search {
+      width: calc(100vw - (30px + 20px + 20px));
+      padding-right: 20px;
+
+      .search-width {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
 
   .header-inner {
     height: 100%;
+
     @include flexbox(space-between, center);
     .search-with-nav {
       @include flexbox(null, center, 50px);

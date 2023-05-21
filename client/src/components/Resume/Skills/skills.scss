@@ -7,11 +7,12 @@
     row-gap: 6px;
 
     > * {
-      padding: 2px 8px;
-      background-color: var(--blue-600);
-      color: white;
+      padding: 1px 6px;
+      background-color: var(--bg-primary-color);
+      color: var(--text-light-color);
       border-radius: 6px;
-      font-size: 12px;
+      font-size: var(--fs-skills-pill);
+      font-weight: 700;
     }
   }
 }

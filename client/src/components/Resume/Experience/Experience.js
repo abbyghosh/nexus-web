@@ -11,32 +11,47 @@ function Experience({ title, data }) {
         {data.map((ele) => (
           <section className="company">
             <div className="company-head">
-              <a href={ele.url} className="company-title timeline-indicator">
+              <a
+                href={ele.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="company-name timeline-indicator"
+              >
                 {ele.companyName}
               </a>
+            </div>
+            <div class="company-misc">
+              <h3 className="company-desig">{ele.degignation}</h3>
               <h3 className="company-duration">{ele.duration}</h3>
             </div>
-            <h3 className="company-desig">{ele.degignation}</h3>
-            {ele.projects.map((project) => (
-              <section className="projects">
-                <div className="project-head">
-                  <h4 className="project-name timeline-indicator-secondary">
-                    {project.projectName}
-                  </h4>
-                  <h4 className="project-duration">{project.duration}</h4>
-                </div>
-                <h4 className="project-technology">
-                  <label>Technology: </label>
-                  <p>{project.technology.join(", ")}</p>
-                </h4>
-                <p className="project-abstract">{project.abstract}</p>
-                <ul>
-                  {project.responsibilities.map((resp) => (
-                    <li>{resp}</li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+
+            <div className="projects">
+              {ele.projects.map((project) => (
+                <section className="project">
+                  <div className="project-head">
+                    <h4 className="project-name timeline-indicator-secondary">
+                      {project.projectName}
+                    </h4>
+                    {/* <h4 className="project-duration">{project.duration}</h4> */}
+                  </div>
+                  <div className="project-body">
+                    <p className="project-abstract">{project.abstract}</p>
+                    <p className="project-technology">
+                      <label>Technology: </label>
+                      <p>{project.technology.join(", ")}</p>
+                    </p>
+                    <p className="project-role">
+                      <label>Roles & Responsibilities : </label>
+                      <ul>
+                        {project.responsibilities.map((resp) => (
+                          <li>{resp}</li>
+                        ))}
+                      </ul>
+                    </p>
+                  </div>
+                </section>
+              ))}
+            </div>
           </section>
         ))}
       </div>

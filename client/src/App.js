@@ -40,7 +40,7 @@ function App() {
         <ProtectedRoute path={TOOLS.url} component={Websites} />
         <ProtectedRoute path={BOOKMARKS.url} component={Bookmarks} />
         <ProtectedRoute path={BLOG.url} component={Blog} />
-        <ProtectedRoute path={RESUME.url} component={Resume} />
+        <Route path={RESUME.url} component={Resume} />
         <Route path={MOVIES.url} exact component={Movies} />
         <Route component={NotFound} />
       </Switch>
